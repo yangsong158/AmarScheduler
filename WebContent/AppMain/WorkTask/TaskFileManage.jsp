@@ -74,8 +74,7 @@
 	}
 	function openTaskDetailInTab(rowdata){
 		if(rowdata){
-			//alert('选择的是:' + rowdata.fileName);
-			parent.openInTab(rowdata.fileName,rowdata.fileName,"TaskFileDetail.jsp?fileName="+rowdata.fileName);
+			parent.tabsView.toggleTabItem(rowdata.fileName,rowdata.fileName,"TaskFileDetail.jsp?fileName="+rowdata.fileName,true);
 		}
 	}
 	

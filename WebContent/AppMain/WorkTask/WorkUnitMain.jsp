@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="../../jslib/easyui/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="../../jslib/easyui/themes/icon.css">
-    <link rel="stylesheet" type="text/css" href="../demo.css">
     <script type="text/javascript" src="../../jslib/easyui/jquery.min.js"></script>
     <script type="text/javascript" src="../../jslib/easyui/jquery.easyui.min.js"></script>
 </head>
@@ -34,26 +33,45 @@ iframe{
 <script language="javascript" type="text/javascript">
 	var tabsView;
 	$(document).ready(function(){
-		tabsView = $('#mainTabs');		
+		tabsView = $('#mainTabs');
+		tabsView.openTabIdx = {};
 		tabsView.tabs({
-			width:tabsView.parent().width(),
-			height:tabsView.parent().height()
+			fit:true,											//宽度、高度自动填充父容器
+			onBeforeClose: function(title,index){
+				var tabItem =  tabsView.tabs('getTab',index);
+				delete tabsView.openTabIdx[tabItem.tabItemId];	//删除之前，先清除缓存中的已打开记录
+				return true;
+			},
+			onClose : function(title,index){
+				tabsView.rebuilTabIdx();						//删除之后，重新建立tab项ID与索引的对照关系
+			}
 		});
 		$.extend(tabsView,{
-			tabsId:{},
-	  		toggleTab:function(itemId,itemTitle,itemURL,itemClosable){
-	  			if(!this.tabsId[itemId]){
-	  				this.tabsId[itemId] = true;
+	  		toggleTabItem : function(itemId,itemTitle,itemURL,itemClosable){
+	  			if(typeof(tabsView.openTabIdx[itemId]) === "undefined"){
 					tabsView.tabs('add',{
 			            title: itemTitle,
 			            content: '<iframe scrolling="auto" frameborder="0"  src="'+itemURL+'"></iframe>',
-			            closable: itemClosable
+			            closable: itemClosable,
+			            selected:true
 			        }); 
+					var tabItem =  tabsView.tabs('getTab', tabsView.tabs("tabs").length-1);
+					tabItem.tabItemId = itemId;					//把当前项的id存到当前项上
+					tabsView.rebuilTabIdx();					//添加后，也需要重新建立tabId与索引的对照关系
+	  			}else{
+	  				var tabIdx = tabsView.openTabIdx[itemId];
+	  				tabsView.tabs("select",tabIdx);				//如果已经打开了，则只需要再次选中即可
+	  			}
+	  		},
+	  		rebuilTabIdx:function(){
+	  			var tabItems = tabsView.tabs("tabs");
+	  			for(var i=0;i<tabItems.length;i++){
+	  				tabsView.openTabIdx[tabItems[i].tabItemId]=i;
 	  			}
 	  		}
 		});
 		
-		tabsView.toggleTab("A","Tab0","TaskFileManage.jsp",false);
-		tabsView.toggleTab("A","Tab0","TaskFileManage.jsp",false);
+		
+		tabsView.toggleTabItem("Root","task文件","TaskFileManage.jsp",false);
 	});
 </script>

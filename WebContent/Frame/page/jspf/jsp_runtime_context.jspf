@@ -1,0 +1,4 @@
+<%
+String sWebRootPath = request.getContextPath();
+String sServletURL = request.getServletPath();
+%>

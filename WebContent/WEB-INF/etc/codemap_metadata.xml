@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="GB2312"?>
+<dataSource>
+  <name>dscds</name>
+  <encoding>GBK</encoding>
+  <label>ORACLE下ALS71数据库定义</label>
+  <describe>ORACLE下ALS71数据库元数据定义</describe>
+  <product>
+    <name>Oracle</name>
+    <version>Oracle Database 11g Release 11.1.0.0.0 - Production</version>
+    <provider>Oracle</provider>
+  </product>
+  <tables>
+    <table name="CODEMAP" >
+        <column index="1" name="CodeNo" label="代码编号" type="CHAR" displaySize="20" precision="0" scale="0" format="" />
+        <column index="2" name="Code1" label="原代码" type="CHAR" displaySize="20" precision="0" scale="0" format="" />
+        <column index="3" name="Code2" label="转换代码" type="CHAR" displaySize="20" precision="0" scale="0" format="" />
+        <column index="4" name="Note5" label="目标代码含义" type="CHAR" displaySize="20" precision="0" scale="0" format="" /> 
+        <column index="5" name="Note6" label="ALS6代码含义" type="CHAR" displaySize="20" precision="0" scale="0" format="" />           
+    </table>    
+  </tables>
+</dataSource>
+

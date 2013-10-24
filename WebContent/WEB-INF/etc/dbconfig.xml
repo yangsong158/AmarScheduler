@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="GB2312"?>
+<databaseConfig>
+	<resources>
+		<resource type="jdbc" name="sdl_ds" encrypt="false">
+			<driver>org.apache.derby.jdbc.EmbeddedDriver</driver>
+			<url>jdbc:derby:/Users/yangsong/Documents/workspace/AmarScheduler/WebContent/database/aschl;create=true</url>
+			<user>sdl</user>
+			<password>sdl</password>
+			<loginTimeout>0</loginTimeout>
+			<logWriter>system.out</logWriter>
+			<maxActive>50</maxActive>
+			<maxWait>5000</maxWait>
+			<maxIdle>30</maxIdle>
+		</resource>
+	</resources>
+</databaseConfig>

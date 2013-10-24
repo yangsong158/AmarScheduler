@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="GBK" ?>
+<!--Amarsoft Runtime Environmen Config File-->
+<ARE>
+	<!--系统属性可以做为多种用途的扩展之用,可以放置任意多的属性在此-->
+	<SystemProperties>
+		<!-- 定义统一的APP_HOME，引用其他文件非常方便 -->
+		<!-- 如果命令行没有task参数，这个属性可以被使用 -->
+		<Property name="DERBY_HOME" 		value="/Users/yangsong/Documents/workspace/AmarScheduler/WebContent/database" />
+		<Property name="derby.system.home"	value="/Users/yangsong/Documents/workspace/AmarScheduler/WebContent/database" />
+	</SystemProperties>
+	
+	<!-- ARE 服务将在初始化时，被装载-->
+	<AREServices>
+		<!-- 日志服务，为应用系统提供全局统一的日志界面。
+			 日志服务的根式日志工厂，目前实现的日志工厂是缺省日志工厂，提供四种日志类型服务:
+		     1、DUMMY,没有属性。此Log是一个假的Log不做任何事情；
+		     2、SIMPLE，简单的日志格式。SimpleLog把日志写到System.err，配置属性在属性文件中定义，此处放置此文件的引用；
+		     3、JDK，标准的JDK日志。属性使用标准的java.util.logging.Logger的配置参数，配置参数放在配置文文件中，此处只定义一个文件引用；
+		     4、LOG4J,属性使用Log4J的配置参数，配置参数放在配置文文件中，此处只定义一个文件引用；
+		-->
+		<Service id="LOG"  enabled="true" initOnStart="true">
+			<Provider>Amarsoft</Provider>
+			<Version>1.0</Version>
+			<Describe>日志服务</Describe>
+			<ServiceClass>com.amarsoft.are.log.impl.DefaultLogFactory</ServiceClass>
+			<Properties>
+				<!-- logType属性用于决定使用此工厂产生的日志类型。可以取值是：SIMPLE,DUMMY,JDK,LOG4J-->
+				<Property name="com.amarsoft.are.log.impl.DefaultLogFactory.logType" value="SIMPLE" />
+				<Property name="com.amarsoft.are.log.impl.DefaultLogFactory.logProperties" value="{$ARE.APP_HOME}/etc/simplelog.properties" />
+			</Properties>
+		</Service>
+		
+		<!-- 元数据服务。提供统一的数据库元数性信息获取界面。
+			 目前系统使用的是ARE缺省的日志服务，存储在XML文件中。每个文件相当于一个数据库，可以在属性中指定多个文件。
+		-->
+		<Service id="METADATA"  enabled="true" initOnStart="true">
+			<Provider>Amarsoft</Provider>
+			<Version>1.0</Version>
+			<Describe>元数据服务</Describe>
+			<ServiceClass>com.amarsoft.are.metadata.XMLMetaDataFactory</ServiceClass>
+			<Properties>
+				<Property name="com.amarsoft.are.metadata.XMLMetaDataFactory.schemas"
+						  value="{$ARE.APP_HOME}/etc/codemap_metadata.xml" />
+			</Properties>
+		</Service>
+		
+		<!-- 数据库连接服务。提供全局统一的数据库连接获取方法。
+			 应用程序可以一致的访问数据库连接，而不需要考虑具体的数据库参数。
+			 ARE缺省提供了一个简单数据库连接池的实现。
+		-->
+		<Service id="DBCONNECTION"  enabled="true" initOnStart="false">
+			<Provider>Amarsoft</Provider>
+			<Version>1.0</Version>
+			<Describe>数据库连接服务</Describe>
+			<ServiceClass>com.amarsoft.are.sql.PooledConnectionFactory</ServiceClass>
+			<Properties>
+				<Property name="com.amarsoft.are.sql.PooledConnectionFactory.resourceFile" 
+						  value="{$ARE.APP_HOME}/etc/dbconfig.xml"/>
+			</Properties>
+		</Service>
+		
+	</AREServices>
+</ARE>

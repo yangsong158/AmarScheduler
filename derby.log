@@ -1,0 +1,10 @@
+----------------------------------------------------------------
+Mon Oct 21 20:57:15 CST 2013:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.2.2 - (1181258): instance a816c00e-0141-db17-3dca-000004467cc0 
+on database directory /Users/yangsong/Documents/workspace/AmarScheduler/WebContent/database/aschl  with class loader sun.misc.Launcher$AppClassLoader@558fe7c3 
+Loaded from file:/Users/yangsong/Documents/workspace/AmarScheduler/WebContent/WEB-INF/lib/derby.jar
+java.vendor=Apple Inc.
+java.runtime.version=1.6.0_65-b14-462-11M4609
+user.dir=/Users/yangsong/Documents/workspace/AmarScheduler
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

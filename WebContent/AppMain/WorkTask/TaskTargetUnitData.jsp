@@ -1,0 +1,44 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+[{
+	"id":"1",
+	"name":"TaskExtTestCase",
+	"describe":"Task扩展功能测试",
+	"children":[{
+		"id":"1-1",
+		"name":"wrapperTest1",
+		"describe":"Task扩展功能测试1"
+		},{
+		"id":"1-2",
+		"name":"wrapperTest2",
+		"describe":"Task扩展功能测试2"
+		},{
+		"id":"1-3",
+		"name":"wrapperTest3",
+		"describe":"Task扩展功能测试3"
+		},{
+		"id":"1-4",
+		"name":"wrapperTest4",
+		"describe":"Task扩展功能测试4"
+		}]
+},{
+	"id":"2",
+	"name":"TaskSqlDemo",
+	"describe":"Task扩展功能SQL处理测试",
+	"children":[{
+		"id":"2-1",
+		"name":"sqlFile1",
+		"describe":"SQL文件测试1"
+		},{
+		"id":"2-2",
+		"name":"sqlFile1",
+		"describe":"SQL文件测试2"
+		},{
+		"id":"2-3",
+		"name":"sqlText1",
+		"describe":"SQL文本测试1"
+		},{
+		"id":"2-4",
+		"name":"sqlText2",
+		"describe":"SQL文本测试1"
+		}]	
+}]

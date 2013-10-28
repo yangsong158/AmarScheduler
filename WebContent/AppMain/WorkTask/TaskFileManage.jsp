@@ -52,6 +52,9 @@
 		                { text: '新增', click: onAdd, iconClass: 'icon_add' },
 		                { text: '编辑', click: onViewEdit, iconClass: 'icon_edit' },
 		                { text: '删除', click: onDelete, iconClass: 'icon_delete' },
+		                { line: true },
+		                { text: '查看参数', click: onAdd, iconClass: 'icon_edit' },
+		                { text: '查看路由', click: onViewEdit, iconClass: 'icon_edit' },
 		                { line: true }
 		            ]
 		        },

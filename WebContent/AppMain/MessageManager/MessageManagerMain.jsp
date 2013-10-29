@@ -74,6 +74,6 @@ iframe{
 		
 		tabsView.toggleTabItem("MessageDataView","消息查看","MessageDataView.jsp",false);
 		tabsView.toggleTabItem("MessageTemplete","消息模板","MessageTemplete.jsp",false);
-		tabsView.tabs("select",1);
+		tabsView.tabs("select",0);
 	});
 </script>

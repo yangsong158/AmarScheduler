@@ -49,7 +49,7 @@
 						}">
 			        <thead>
 			            <tr>
-			                <th data-options="field:'fileName',width:200,checkbox:true">文件名称</th>
+			                <th data-options="field:'fileName',width:200">文件名称</th>
 			                <th data-options="field:'fileSize',width:100">文件大小</th>
 			                <th data-options="field:'createTime',width:170">生成时间</th>
 			            </tr>

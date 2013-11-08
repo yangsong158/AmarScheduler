@@ -56,20 +56,6 @@
 		};
 	//修改
 	function onAdd(){
-		var cmdInvoketServlet="<c:url value='/AgentCommandInvokerServlet' />";
-		$.ajax({
-			   type: "POST",
-			   url: cmdInvoketServlet,
-			   cache: false,
-			   dataType:"json",
-			   data: {"fileName":"a01","fileDesc":"DD1"},
-			   beforeSend:function(xmlHttpRequest){
-				   xmlHttpRequest.setRequestHeader("InvokerAgentCommand", "MyCommand");
-			   },
-			   success: function(msg){
-			     //alert( "Data Saved: " + msg );
-			   }
-			});
 		//top.Dialog.open({URL:"../../sample_skin/normal/user-management-content2.html",Title:"查看",Width:500,Height:330}); 
 		//top.Dialog.alert("见JAVA版或.NET版演示。");
 	}
@@ -89,15 +75,20 @@
 		  	top.Dialog.alert("向后台发送ajax请求来删除。见JAVA版或.NET版演示。");
 		});
 	}
-	
-	//********初始化操作，加载列表
-	$(function(){
+	//==========API==========
+	//刷新列表
+	//=======================
+	function refreshGrid(){
 		YSCore.invokerAgentCommand("com.amarsoft.scheduler.command.TaskFileQueryCommand",null,function(data){
 			var gridData = {};
 			gridData["form.paginate.totalRows"] = data.length;
 			gridData["rows"] = data;
 			grid.loadData(gridData);
 		});	
+	}
+	//********初始化操作，加载列表
+	$(function(){
+		refreshGrid();
 	});
 </script>	
 </body>

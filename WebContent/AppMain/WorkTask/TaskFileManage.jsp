@@ -6,10 +6,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>基本表格模板</title>
 <!--框架必需start-->
-<script type="text/javascript" src="../../jslib/qui/js/jquery.js"></script>
-<script type="text/javascript" src="../../jslib/qui/js/framework.js"></script>
-<link href="../../jslib/qui/css/import_basic.css" rel="stylesheet" type="text/css"/>
-<link href="../../jslib/qui/skins/blue/style.css" rel="stylesheet" type="text/css" id="theme"/>
+<script type="text/javascript" src="<c:url value='/jslib/qui/js/jquery.js' />"></script>
+<script type="text/javascript" src="<c:url value='/jslib/qui/js/framework.js' />"></script>
+<script type="text/javascript" src="<c:url value='/jslib/YSCore.js' />"></script>
+<link href="<c:url value='/jslib/qui/css/import_basic.css' />" rel="stylesheet" type="text/css"/>
+<link href="<c:url value='/jslib/qui/skins/blue/style.css' />" rel="stylesheet" type="text/css" id="theme"/>
 <!--框架必需end-->
 
 <!--数据表格start-->
@@ -22,17 +23,6 @@
 
 <script type="text/javascript">
 	    //定义本地数据
-	  var gridData={
-	    		"form.paginate.pageNo":1,
-	    		"form.paginate.totalRows":15,
-	    		"rows":[
-				  	{"fileName":"import_core_task.xml"	,"fileDescribe":"核心数据导入"		,"createDate":"2013/10/21","updateDate":"2013/10/21","remark":""},
-				  	{"fileName":"biz_data_clean.xml"	,"fileDescribe":"数据清理单元"		,"createDate":"2013/10/21","updateDate":"2013/10/21","remark":""},
-				  	{"fileName":"customer_task1.xml"	,"fileDescribe":"客户任务处理1"	,"createDate":"2013/10/21","updateDate":"2013/10/21","remark":""},
-				  	{"fileName":"credit_card_task.xml"	,"fileDescribe":"评分卡处理"		,"createDate":"2013/10/21","updateDate":"2013/10/21","remark":""},
-				  	{"fileName":"after_loan.xml"		,"fileDescribe":"贷后数据处理"		,"createDate":"2013/10/21","updateDate":"2013/10/21","remark":""},
-	  			]
-	    };
         var grid;
 		function initComplete(){
 			grid = $("#maingrid").quiGrid({
@@ -64,21 +54,24 @@
                 } 
          	});
 		};
-	var jsonReqURL = "<c:url value='/Frame/tools/GetQuiJson.jsp' />";
-	$(function(){
-		$.post(jsonReqURL,
-				{},
-				function(result){
-					//alert(result["form.paginate.totalRows"]);
-					grid.loadData(result);
-				},"json");
-
-	});
 	//修改
 	function onAdd(){
-		alert("选择的记录Id是:" + rowid );
+		var cmdInvoketServlet="<c:url value='/AgentCommandInvokerServlet' />";
+		$.ajax({
+			   type: "POST",
+			   url: cmdInvoketServlet,
+			   cache: false,
+			   dataType:"json",
+			   data: {"fileName":"a01","fileDesc":"DD1"},
+			   beforeSend:function(xmlHttpRequest){
+				   xmlHttpRequest.setRequestHeader("InvokerAgentCommand", "MyCommand");
+			   },
+			   success: function(msg){
+			     //alert( "Data Saved: " + msg );
+			   }
+			});
 		//top.Dialog.open({URL:"../../sample_skin/normal/user-management-content2.html",Title:"查看",Width:500,Height:330}); 
-		top.Dialog.alert("见JAVA版或.NET版演示。");
+		//top.Dialog.alert("见JAVA版或.NET版演示。");
 	}
 	//修改
 	function onViewEdit(){
@@ -96,7 +89,16 @@
 		  	top.Dialog.alert("向后台发送ajax请求来删除。见JAVA版或.NET版演示。");
 		});
 	}
-		
+	
+	//********初始化操作，加载列表
+	$(function(){
+		YSCore.invokerAgentCommand("com.amarsoft.scheduler.command.TaskFileQueryCommand",null,function(data){
+			var gridData = {};
+			gridData["form.paginate.totalRows"] = data.length;
+			gridData["rows"] = data;
+			grid.loadData(gridData);
+		});	
+	});
 </script>	
 </body>
 </html>

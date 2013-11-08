@@ -19,4 +19,25 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
+	
+	<!-- servlet -->
+	<servlet>
+		<servlet-name>agentCommandInvokerServlet</servlet-name>
+		<servlet-class>com.amarsoft.scheduler.servlet.AgentCommandInvokerServlet</servlet-class>
+		<init-param>
+			<param-name>AgentServerIP</param-name>
+			<param-value>127.0.0.1</param-value>
+		</init-param> 
+		<init-param>
+			<param-name>AgentServerPort</param-name>
+			<param-value>8923</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>	
+	
+	<!-- servlet-mapping -->
+	<servlet-mapping>
+		<servlet-name>agentCommandInvokerServlet</servlet-name>
+		<url-pattern>/AgentCommandInvokerServlet</url-pattern>
+	</servlet-mapping>
 </web-app>

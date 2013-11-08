@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.util.List" %>
-<%@page import="com.amarsoft.scheduler.XMLHelper" %>
+<%@page import="com.amarsoft.scheduler.helper.XMLHelper" %>
 <%@page import="com.amarsoft.scheduler.client.AgentCommandInvoker"%>
 <%@page import="com.amarsoft.scheduler.command.TaskFileQueryCommand"%>
 <%@page import="com.amarsoft.scheduler.entity.TaskFile"%>

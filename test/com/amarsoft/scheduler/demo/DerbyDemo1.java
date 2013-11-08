@@ -19,12 +19,12 @@ public class DerbyDemo1 {
 
 	@BeforeClass
 	public static void init(){
+		System.setProperty("derby.system.home", "/Users/yangsong/Documents/workspace/AmarScheduler");
 		ARE.setProperty("APP_HOME", "./WebContent/WEB-INF");
 		ARE.init("./WebContent/WEB-INF/etc/are.xml");
 	}
 	@Before
 	public void methodPrepare(){
-		System.out.println(this);
 	}
 //	@Test
 //	public void testCreate(){

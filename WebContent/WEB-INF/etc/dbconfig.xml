@@ -3,7 +3,10 @@
 	<resources>
 		<resource type="jdbc" name="sdl_ds" encrypt="false">
 			<driver>org.apache.derby.jdbc.EmbeddedDriver</driver>
+			<url>jdbc:derby:derby_db/aschl;create=true</url>
+			<!-- 
 			<url>jdbc:derby:/Users/yangsong/Documents/workspace/AmarScheduler/WebContent/database/aschl;create=true</url>
+			 -->
 			<user>sdl</user>
 			<password>sdl</password>
 			<loginTimeout>0</loginTimeout>

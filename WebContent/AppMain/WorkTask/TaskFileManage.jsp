@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>  
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -37,12 +38,12 @@
 			grid = $("#maingrid").quiGrid({
 		       columns: [ 
 			                { display: 'task文件名',	name: 'fileName',		align: 'left',	width: "25%", isSort:true},
-			                { display: '文件说明',	name: 'fileDescribe',	align: 'left',	width: "35%"},
-			                { display: '创建日期',	name: 'createDate',		align: 'left',	width: "5%", isSort:true},
-			                { display: '更新日期',	name: 'updateDate',		align: 'left',	width: "5%", isSort:true },
+			                { display: '文件说明',	name: 'fileDesc',	align: 'left',	width: "35%"},
+			                { display: '创建日期',	name: 'createTime',		align: 'left',	width: "5%", isSort:true},
+			                { display: '更新日期',	name: 'updateTime',		align: 'left',	width: "5%", isSort:true },
 		                	{ display: '备注',		name: "remark",			align: 'left',	width: "30%",}
 		         ], 
-		        data:gridData, pageSize: 10, sortName: 'id',rownumbers:true,checkbox:false,
+		        data:[], pageSize: 10, sortName: 'id',rownumbers:true,checkbox:false,
 		        height: '100%', width:"100%",percentWidthMode:true,
 		        //顶部图标按钮栏
 				toolbar: 
@@ -63,8 +64,16 @@
                 } 
          	});
 		};
-	
-	
+	var jsonReqURL = "<c:url value='/Frame/tools/GetQuiJson.jsp' />";
+	$(function(){
+		$.post(jsonReqURL,
+				{},
+				function(result){
+					//alert(result["form.paginate.totalRows"]);
+					grid.loadData(result);
+				},"json");
+
+	});
 	//修改
 	function onAdd(){
 		alert("选择的记录Id是:" + rowid );

@@ -70,16 +70,21 @@
 	}
 	
 	//删除
-	function onDelete(rowid,rowidx){
-		top.Dialog.confirm("确定要删除该记录吗？",function(){
-		  	top.Dialog.alert("向后台发送ajax请求来删除。见JAVA版或.NET版演示。");
-		});
+	function onDelete(){
+		var row = grid.getSelectedRow();
+		alert(row["fileName"]);
+		YSCore.invokerAgentCommand("com.amarsoft.scheduler.command.impl.TaskFileDeleteCommandImpl",row,function(data){
+			refreshGrid();
+		});	
+		//top.Dialog.confirm("确定要删除该记录吗？",function(){
+		//  	top.Dialog.alert("向后台发送ajax请求来删除。见JAVA版或.NET版演示。");
+		//});
 	}
 	//==========API==========
 	//刷新列表
 	//=======================
 	function refreshGrid(){
-		YSCore.invokerAgentCommand("com.amarsoft.scheduler.command.TaskFileQueryCommand",null,function(data){
+		YSCore.invokerAgentCommand("com.amarsoft.scheduler.command.impl.TaskFileQueryCommandImpl",null,function(data){
 			var gridData = {};
 			gridData["form.paginate.totalRows"] = data.length;
 			gridData["rows"] = data;

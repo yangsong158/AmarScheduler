@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.amarsoft.scheduler.client.AgentCommandInvoker;
-import com.amarsoft.scheduler.command.AgentCommand;
 import com.amarsoft.scheduler.helper.XMLHelper;
 
 /**
@@ -66,7 +65,7 @@ public class AgentCommandInvokerServlet extends HttpServlet{
 		}
 		//3.动作触发
 		if(cmd==null||cmd.length()==0){
-			outContent = XMLHelper.getAsJsonString(ErrorMessage.createErrorMessage(2002));
+			outContent = XMLHelper.getAsJsonString(CodeMessage.createErrorMessage(2002));
 		}else{
 			outContent=invokerCmd(cmd,parameter);
 		}
@@ -80,24 +79,17 @@ public class AgentCommandInvokerServlet extends HttpServlet{
 	 * @param parameter
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	protected String invokerCmd(String className,Map<String,String> parameter){
 		String cmdResult = "";
 		try {
-			Class<? extends AgentCommandInvoker<Object,Map<String,String>>> classInst = (Class<? extends AgentCommandInvoker<Object, Map<String, String>>>) Class.forName(className);
-			AgentCommandInvoker<Object,Map<String,String>> invoker = new AgentCommandInvoker<Object,Map<String,String>>(
-					agentServerIP
-					,agentServerPort
-					,(Class<? extends AgentCommand<Object, Map<String, String>>>) classInst);
+			AgentCommandInvoker<Object> invoker = new AgentCommandInvoker<Object>(agentServerIP,agentServerPort,className);
 			Object obj = invoker.invoker(parameter);
 			cmdResult = XMLHelper.getAsJsonString(obj);
-		} catch (ClassNotFoundException e) {
-			cmdResult = XMLHelper.getAsJsonString(ErrorMessage.createErrorMessage(2001, className));
 		} catch (Exception e) {
 			if(e instanceof java.net.ConnectException){
-				cmdResult = XMLHelper.getAsJsonString(ErrorMessage.createErrorMessage(1001));
+				cmdResult = XMLHelper.getAsJsonString(CodeMessage.createErrorMessage(1001));
 			}else{
-				cmdResult = XMLHelper.getAsJsonString(ErrorMessage.createErrorMessage(1002));
+				cmdResult = XMLHelper.getAsJsonString(CodeMessage.createErrorMessage(1002));
 			}
 		}
 		
@@ -108,7 +100,7 @@ public class AgentCommandInvokerServlet extends HttpServlet{
 	 * 错误消息定义类
 	 */
 	@SuppressWarnings("unused")
-	private static class ErrorMessage{
+	private static class CodeMessage{
 		private static final Map<Integer,String> errCodeMsg = new HashMap<Integer,String>(); 
 		static{
 			//1 agent服务器处理问题
@@ -125,7 +117,7 @@ public class AgentCommandInvokerServlet extends HttpServlet{
 		
 		private int errorCode;
 		private String errorMsg;
-		private ErrorMessage(int errorCode, String errorMsg) {
+		private CodeMessage(int errorCode, String errorMsg) {
 			this.errorCode = errorCode;
 			this.errorMsg = errorMsg;
 		}
@@ -135,15 +127,15 @@ public class AgentCommandInvokerServlet extends HttpServlet{
 		 * @param tplData 模板参数
 		 * @return
 		 */
-		public static ErrorMessage createErrorMessage(Integer errorCode,Object... tplData){
-			ErrorMessage  em = null;
+		public static CodeMessage createErrorMessage(Integer errorCode,Object... tplData){
+			CodeMessage  em = null;
 			String msg = errCodeMsg.get(errorCode);
 			if(msg==null){
 				em = createErrorMessage(9000,errorCode);
 			}else{
 				msg = MessageFormat.format(msg,tplData);
 				msg = "["+errorCode+"]-"+msg;
-				em = new ErrorMessage(errorCode,msg);
+				em = new CodeMessage(errorCode,msg);
 			}
 			return em;
 		}

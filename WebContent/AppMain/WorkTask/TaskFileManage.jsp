@@ -16,10 +16,11 @@
 				grid = $("#maingrid").quiGrid({
 			       columns: [ 
 				                { display: 'task文件名',	name: 'fileName',		align: 'left',	width: "15%", isSort:true},
-				                { display: '文件说明',	name: 'fileDesc',		align: 'left',	width: "30%"},
+				                { display: '文件说明',	name: 'fileDesc',		align: 'left',	width: "20%"},
+				                { display: '排序号',	name: 'sortNo',		align: 'left',	width: "5%"},
 				                { display: '创建日期',	name: 'createTime',		align: 'left',	width: "15%", isSort:true},
 				                { display: '更新日期',	name: 'updateTime',		align: 'left',	width: "15%", isSort:true },
-			                	{ display: '备注',		name: "remark",			align: 'left',	width: "25%",}
+			                	{ display: '备注',		name: "remark",			align: 'left',	width: "30%",}
 			         ], 
 			        data:[], pageSize: 10, sortName: 'id',rownumbers:true,checkbox:false,
 			        height: '100%', width:"100%",percentWidthMode:true,

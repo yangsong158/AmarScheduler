@@ -140,4 +140,16 @@ $.extend({
 			field.attr("name",field.attr("id"));
 		});
 	};
+	/**
+	 * 必输选项，自动加上星标
+	 */
+	$.fn.requiredFieldsAppendStar = function(){
+		var formContext = $(this);
+		$("input[id],textarea[id]",formContext).each(function(){
+			var field = $(this);
+			if(field.hasClass("validate[required]")){
+				field.after('<span class="star">*</span>');
+			}
+		});
+	};	
 })(jQuery);

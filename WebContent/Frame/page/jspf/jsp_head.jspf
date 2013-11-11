@@ -1,0 +1,12 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>基本表格模板</title>
+	<!--框架必需start-->
+	<script type="text/javascript" src="<c:url value='/jslib/qui/js/jquery.js' />"></script>
+	<script type="text/javascript" src="<c:url value='/jslib/qui/js/framework.js' />"></script>
+	<script type="text/javascript" src="<c:url value='/jslib/YSCore.js' />"></script>
+	<link href="<c:url value='/jslib/qui/css/import_basic.css' />" rel="stylesheet" type="text/css"/>
+	<link href="<c:url value='/jslib/qui/skins/blue/style.css' />" rel="stylesheet" type="text/css" id="theme"/>
+	<!--框架必需end-->
+</head>

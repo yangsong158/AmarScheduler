@@ -89,7 +89,8 @@ public class AgentCommandInvokerServlet extends HttpServlet{
 			if(e instanceof java.net.ConnectException){
 				cmdResult = XMLHelper.getAsJsonString(CodeMessage.createErrorMessage(1001));
 			}else{
-				cmdResult = XMLHelper.getAsJsonString(CodeMessage.createErrorMessage(1002));
+				cmdResult = XMLHelper.getAsJsonString(CodeMessage.createErrorMessage(1002,e));
+				e.printStackTrace();
 			}
 		}
 		
@@ -105,7 +106,7 @@ public class AgentCommandInvokerServlet extends HttpServlet{
 		static{
 			//1 agent服务器处理问题
 			errCodeMsg.put(1001,"连接agent服务器异常，请检查agent服务是否启动");
-			errCodeMsg.put(1002,"调用远程命令出错");
+			errCodeMsg.put(1002,"调用远程命令出错,出错消息:{0}");
 			//2 参数问题
 			errCodeMsg.put(2001,"命令执行类{0}不存在");
 			errCodeMsg.put(2002,"参数InvokerAgentCommand为空");

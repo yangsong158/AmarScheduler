@@ -79,7 +79,7 @@
 				return;
 			}
 			Dialog.confirm("确定删除文件",function(){
-				YSCore.invokerAgentCommand("com.amarsoft.scheduler.command.impl.TaskFileDeleteCommandImpl",row,function(data){
+				YSCore.invokerAgentCommand("com.amarsoft.scheduler.command.impl.TaskFileRecordDeleteCommandImpl",row,function(data){
 					refreshGrid();
 				});	
 			},function(){
@@ -90,7 +90,7 @@
 		//刷新列表
 		//=======================
 		function refreshGrid(){
-			YSCore.invokerAgentCommand("com.amarsoft.scheduler.command.impl.TaskFileQueryCommandImpl",null,function(data){
+			YSCore.invokerAgentCommand("com.amarsoft.scheduler.command.impl.TaskFileRecordQueryCommandImpl",null,function(data){
 				var gridData = {};
 				gridData["form.paginate.totalRows"] = data.length;
 				gridData["rows"] = data;

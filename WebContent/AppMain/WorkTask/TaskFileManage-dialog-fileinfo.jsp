@@ -74,7 +74,7 @@
 	function doSubmit(){
 		validateForm(formContainer,function(){
 	    	var formData = formContainer.serializeJson();
-			YSCore.invokerAgentCommand("com.amarsoft.scheduler.command.impl.TaskFileSaveCommandImpl",formData,function(data){
+			YSCore.invokerAgentCommand("com.amarsoft.scheduler.command.impl.TaskFileRecordSaveCommandImpl",formData,function(data){
 				if(parseInt(data)==1){
 					parent.refreshGrid();
 					doCancel();

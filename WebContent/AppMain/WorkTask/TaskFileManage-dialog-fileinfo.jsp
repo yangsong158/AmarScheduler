@@ -40,7 +40,7 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="button" value="提交" onclick="doSubmit()"/>
+					<input type="button" value="保存" onclick="doSubmit()"/>
 					<input type="reset" value="取消" onclick="doCancel()" />
 				</td>
 			</tr>

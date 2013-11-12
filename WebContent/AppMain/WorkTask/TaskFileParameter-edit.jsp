@@ -22,8 +22,8 @@ function initComplete(){
 	grid = $("#grid").quiGrid({
 	      columns: [ 
 	                { display: '顺序号',	name: 'sortNo',				align: 'left',	width: "10%", isSort:true},
-	                { display: '参数名',	name: 'parameterName',		align: 'left',	width: "30%"},
-	                { display: '参数值',	name: 'parameterValue',		align: 'left',	width: "50%"},
+	                { display: '参数名',	name: 'parameterName',		align: 'left',	width: "30%",editor:{ type: 'text',maxlength:80}},
+	                { display: '参数值',	name: 'parameterValue',		align: 'left',	width: "50%",editor:{ type: 'text'}},
 	                { display: '操作',isAllowHide: false, align: 'left', width:"5%",
 						 render: function (rowdata, rowindex, value, column){
 		                 	    return '<div class="padding_top4 padding_left5">'
@@ -33,6 +33,7 @@ function initComplete(){
 	                }
 	        ], 
 	       data:[], sortName: 'sortNo',rownumbers:false,checkbox:false,usePager:false,
+	       enabledEdit:true, detailToEdit:false,onBeforeSubmitEdit:onBeforeSubmitEdit,
 	       height: '100%', width:"100%",percentWidthMode:true,
 	       //顶部图标按钮栏
 		toolbar: { 
@@ -84,5 +85,13 @@ function onSaveAll(){
 }
 function onEditParameterValue(paraValue){
 	alert("编辑参数："+paraValue);
+}
+//编辑提交前
+function onBeforeSubmitEdit(e){
+	//var str="编辑前事件，可阻止某些行或列进行编辑。列名："+e.column.name+"；行号："+e.rowindex+"；编辑后的值："+e.value+"\n";
+	//alert(str);
+ 	//当：detailToEdit=true时
+ 	//e{record,rowindex,newdata}
+ 	//alert(e.record["parameterName"]+"->"+e.newdata["parameterName"]);
 }
 </script>

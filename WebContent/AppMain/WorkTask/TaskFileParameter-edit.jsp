@@ -22,7 +22,7 @@ var grid;
 function initComplete(){
 	grid = $("#grid").quiGrid({
 	      columns: [ 
-	                { display: '顺序号',	name: 'sortNo',				align: 'left',	width: "10%", isSort:true,editor:{ type: 'stepper',min:1}},
+//	                { display: '顺序号',	name: 'sortNo',		align: 'left',	width: "10%", isSort:true,editor:{ type: 'stepper',min:1}},
 	                { display: '参数名',	name: 'name',		align: 'left',	width: "30%",editor:{ type: 'text',maxlength:80}},
 	                { display: '参数值',	name: 'value',		align: 'left',	width: "50%",editor:{ type: 'text'}},
 	                { display: '操作',isAllowHide: false, align: 'left', width:"5%",
@@ -32,7 +32,7 @@ function initComplete(){
 		                               + '</div>';}
 	                }
 	        ], 
-	       data:[], sortName: 'sortNo',rownumbers:false,checkbox:false,usePager:false,
+	       data:[], sortName: 'sortNo',rownumbers:true,checkbox:false,usePager:false,
 	       enabledEdit:true, detailToEdit:false,onBeforeSubmitEdit:onBeforeSubmitEdit,
 	       height: '100%', width:"100%",percentWidthMode:true,
 	       //顶部图标按钮栏
@@ -95,13 +95,31 @@ function onDeleteRow(){
 }
 //保存操作
 function onSaveAll(){
+	//组装XML
+	var xmlData = [];
+	xmlData.push('<taskParameter>');
+	//文件名
+	xmlData.push('<xmlFile>');
+	xmlData.push($.getParameter()["fileName"]);
+	xmlData.push('</xmlFile>');
+	//扩展属性
+	xmlData.push('<extendProperties>');
 	for(var i=0;i<grid.getData().length;i++){
 		var currentRow = grid.getData()[i];
-		if(i==2){
-			alert(currentRow["value"]);
+		xmlData.push('<property name="'+currentRow["name"]+'">');
+		xmlData.push('<![CDATA['+currentRow["value"]+']]>');
+		xmlData.push('</property>');
+	}
+	xmlData.push('</extendProperties>');
+	xmlData.push('</taskParameter>');
+	
+	//发送XML数据
+	var para = {"xmlData":xmlData.join("")};
+	YSCore.invokerAgentCommand("com.amarsoft.scheduler.command.impl.TaskFileParameterSaveCommandImpl",para,function(data){
+		if(data==1){
+			window.location.reload();
 		}
-	}	
-	refreshGrid();
+	});	
 }
 function onEditParameterValue(paraValue){
 	alert("编辑参数："+paraValue);

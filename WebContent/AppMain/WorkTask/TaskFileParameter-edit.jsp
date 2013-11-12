@@ -65,12 +65,19 @@ function refreshGrid(){
 }
 //添加操作
 function onAppendRow(){
-	var rowdata = {
-			sortNo: "001",
-			parameterName: "Arg1",
-			parameterValue: "v1"
-	       };
-	grid.add(rowdata);
+	var maxSortNo = 0;
+	var lastRow = {};
+	for(var i=0;i<grid.getData().length;i++){
+		lastRow = grid.getData()[i];
+		if(lastRow["sortNo"]>maxSortNo){
+			maxSortNo = lastRow["sortNo"];
+		}
+	}
+	var newRow = $.extend(lastRow,{});
+	newRow["sortNo"]=maxSortNo+1;
+	newRow["name"]="";
+	newRow["value"]="";
+	grid.add(newRow);
 }
 //删除操作
 function onDeleteRow(){
@@ -88,7 +95,13 @@ function onDeleteRow(){
 }
 //保存操作
 function onSaveAll(){
-	
+	for(var i=0;i<grid.getData().length;i++){
+		var currentRow = grid.getData()[i];
+		if(i==2){
+			alert(currentRow["value"]);
+		}
+	}	
+	refreshGrid();
 }
 function onEditParameterValue(paraValue){
 	alert("编辑参数："+paraValue);

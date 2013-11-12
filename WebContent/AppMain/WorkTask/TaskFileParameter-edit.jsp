@@ -23,8 +23,14 @@ function initComplete(){
 	      columns: [ 
 	                { display: '顺序号',	name: 'sortNo',				align: 'left',	width: "10%", isSort:true},
 	                { display: '参数名',	name: 'parameterName',		align: 'left',	width: "30%"},
-	                { display: '参数值',	name: 'parameterValue',		align: 'left',	width: "40%"},
-	                { display: '操作',	name: 'btn_operate',		align: 'left',	width: "20%"}
+	                { display: '参数值',	name: 'parameterValue',		align: 'left',	width: "50%"},
+	                { display: '操作',isAllowHide: false, align: 'left', width:"5%",
+						 render: function (rowdata, rowindex, value, column){
+		                 	    return '<div class="padding_top4 padding_left5">'
+		                                 + '<span class="img_edit hand" title="编辑参数" onclick=onEditParameterValue(' + rowindex + ')></span>'
+		                               + '</div>'}
+	                	
+	                }
 	        ], 
 	       data:[], sortName: 'sortNo',rownumbers:false,checkbox:false,usePager:false,
 	       height: '100%', width:"100%",percentWidthMode:true,
@@ -75,5 +81,8 @@ function onDeleteRow(){
 //保存操作
 function onSaveAll(){
 	
+}
+function onEditParameterValue(paraValue){
+	alert("编辑参数："+paraValue);
 }
 </script>

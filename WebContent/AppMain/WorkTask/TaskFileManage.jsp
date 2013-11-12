@@ -1,13 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<%@include file="/Frame/page/jspf/jsp_head.jspf" %>
-<body>
-	<div id="maingrid"></div>
+<head>
+	<title>Task文件管理</title>
+	<%@include file="/Frame/page/jspf/jsp_head.jspf" %>
 	<!--数据表格start-->
 	<script type="text/javascript" src="<c:url value='/jslib/qui/js/table/quiGrid.js' />"></script>
 	<script type="text/javascript" src="<c:url value='/jslib/qui/js/popup/drag.js' />"></script>
 	<script type="text/javascript" src="<c:url value='/jslib/qui/js/popup/dialog.js' />"></script>
+</head>
+<body>
+	<div id="maingrid"></div>
 	<!--数据表格end-->
 	<script type="text/javascript">
 		    //定义本地数据
@@ -22,7 +25,7 @@
 				                { display: '更新日期',	name: 'updateTime',		align: 'left',	width: "15%", isSort:true },
 			                	{ display: '备注',		name: "remark",			align: 'left',	width: "30%",}
 			         ], 
-			        data:[], pageSize: 10, sortName: 'id',rownumbers:true,checkbox:false,
+			        data:[], pageSize: 10, sortName: 'id',rownumbers:true,checkbox:false,usePager:false,
 			        height: '100%', width:"100%",percentWidthMode:true,
 			        //顶部图标按钮栏
 					toolbar: 
@@ -33,7 +36,7 @@
 			                { text: '编辑', click: onEditInfo, iconClass: 'icon_edit' },
 			                { text: '删除', click: onDelete, iconClass: 'icon_delete' },
 			                { line: true },
-			                { text: '查看参数', click: onAdd, iconClass: 'icon_edit' },
+			                { text: '查看参数', click: onEditParameter, iconClass: 'icon_edit' },
 			                { text: '查看路由', click: onViewEdit, iconClass: 'icon_edit' },
 			                { line: true }
 			            ]
@@ -48,6 +51,7 @@
 			var diag = new Dialog();
 			diag.Title = "添加一个新文件";
 			diag.URL = "TaskFileManage-dialog-fileinfo.jsp";
+			diag.Height = 300;
 			diag.show();			
 		}
 		//修改
@@ -58,8 +62,9 @@
 				return;
 			}
 			var diag = new Dialog();
-			diag.Title = "添加一个新文件";
+			diag.Title = "Task文件参数编辑";
 			diag.URL = "TaskFileManage-dialog-fileinfo.jsp?"+$.jsonConvertParameter(row);
+			diag.Height = 300;
 			diag.show();
 		}
 		function onViewEdit(){
@@ -85,6 +90,19 @@
 			},function(){
 				//top.Dialog.alert("点击了取消");
 			});
+		}
+		//编辑参数
+		function onEditParameter(){
+			var row = grid.getSelectedRow();
+			if(!row){
+				Dialog.alert("请选择一条记录");
+				return;
+			}
+			var diag = new Dialog();
+			diag.Title = "添加一个新文件";
+			diag.Width = 800;
+			diag.URL = "TaskFileParameter-edit.jsp?"+$.jsonConvertParameter(row);
+			diag.show();
 		}
 		//==========API==========
 		//刷新列表

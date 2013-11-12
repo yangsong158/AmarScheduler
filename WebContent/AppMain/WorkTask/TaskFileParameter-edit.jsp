@@ -8,6 +8,7 @@
 	<script type="text/javascript" src="<c:url value='/jslib/qui/js/table/quiGrid.js' />"></script>
 	<script type="text/javascript" src="<c:url value='/jslib/qui/js/popup/drag.js' />"></script>
 	<script type="text/javascript" src="<c:url value='/jslib/qui/js/popup/dialog.js' />"></script>
+	<script type="text/javascript" src="<c:url value='/jslib/qui/js/form/stepper.js' />"></script>
 </head>
 <body>
 	<div id="grid"></div>
@@ -21,15 +22,14 @@ var grid;
 function initComplete(){
 	grid = $("#grid").quiGrid({
 	      columns: [ 
-	                { display: '顺序号',	name: 'sortNo',				align: 'left',	width: "10%", isSort:true},
-	                { display: '参数名',	name: 'parameterName',		align: 'left',	width: "30%",editor:{ type: 'text',maxlength:80}},
-	                { display: '参数值',	name: 'parameterValue',		align: 'left',	width: "50%",editor:{ type: 'text'}},
+	                { display: '顺序号',	name: 'sortNo',				align: 'left',	width: "10%", isSort:true,editor:{ type: 'stepper',min:1}},
+	                { display: '参数名',	name: 'name',		align: 'left',	width: "30%",editor:{ type: 'text',maxlength:80}},
+	                { display: '参数值',	name: 'value',		align: 'left',	width: "50%",editor:{ type: 'text'}},
 	                { display: '操作',isAllowHide: false, align: 'left', width:"5%",
 						 render: function (rowdata, rowindex, value, column){
 		                 	    return '<div class="padding_top4 padding_left5">'
 		                                 + '<span class="img_edit hand" title="编辑参数" onclick=onEditParameterValue(' + rowindex + ')></span>'
-		                               + '</div>'}
-	                	
+		                               + '</div>';}
 	                }
 	        ], 
 	       data:[], sortName: 'sortNo',rownumbers:false,checkbox:false,usePager:false,
@@ -45,8 +45,8 @@ function initComplete(){
 	               { line: true }
 	           ]}
 	      	});
-	
 	loadGridData([]);
+	refreshGrid();
 };
 function loadGridData(data){
 	if(data&&$.type(data) === "array"){
@@ -55,6 +55,13 @@ function loadGridData(data){
 		gridData["rows"] = data;
 		grid.loadData(gridData);	
 	}
+}
+function refreshGrid(){
+	var para = {};
+	para["xmlFile"]=$.getParameter()["fileName"];
+	YSCore.invokerAgentCommand("com.amarsoft.scheduler.command.impl.TaskFileParameterQueryCommandImpl",para,function(data){
+		loadGridData(data);
+	});	
 }
 //添加操作
 function onAppendRow(){

@@ -59,7 +59,7 @@ function loadGridData(data){
 function refreshGrid(){
 	var para = {};
 	para["xmlFile"]=$.getParameter()["fileName"];
-	YSCore.invokerAgentCommand("com.amarsoft.scheduler.command.impl.TaskFileParameterQueryCommandImpl",para,function(data){
+	YSCore.invokerAgentCommand("com.amarsoft.scheduler.command.impl.TaskPropertyQueryCommandImpl",para,function(data){
 		loadGridData(data);
 	});	
 }
@@ -115,7 +115,7 @@ function onSaveAll(){
 	
 	//发送XML数据
 	var para = {"xmlData":xmlData.join("")};
-	YSCore.invokerAgentCommand("com.amarsoft.scheduler.command.impl.TaskFileParameterSaveCommandImpl",para,function(data){
+	YSCore.invokerAgentCommand("com.amarsoft.scheduler.command.impl.TaskPropertySaveCommandImpl",para,function(data){
 		if(data==1){
 			window.location.reload();
 		}

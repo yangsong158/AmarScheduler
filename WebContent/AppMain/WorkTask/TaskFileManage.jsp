@@ -25,7 +25,7 @@
 				                { display: '更新日期',	name: 'updateTime',		align: 'left',	width: "15%", isSort:true },
 			                	{ display: '备注',		name: "remark",			align: 'left',	width: "30%",}
 			         ], 
-			        data:[], pageSize: 10, sortName: 'id',rownumbers:true,checkbox:false,usePager:false,
+			        data:[], pageSize: 10, sortName: 'sortNo',rownumbers:true,checkbox:false,usePager:false,
 			        height: '100%', width:"100%",percentWidthMode:true,
 			        //顶部图标按钮栏
 					toolbar: 

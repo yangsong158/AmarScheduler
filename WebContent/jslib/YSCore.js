@@ -8,15 +8,44 @@ YSCore.getContextPath = function(){
 	return curPath.substr(0,index+1);
 };
 /**
- * 调用agent命令
+ * 获取文件路径的绝对路径
+ * @param path 文件路径
  */
-YSCore.invokerAgentCommand = function(className,requestData,callback){
+YSCore.getAbsURI = function(path){
+	return YSCore.getContextPath()+path;
+};
+/**
+ * 获取URI地址，包括参数
+ * @param path 文件路径
+ * @param parameter 参数json对象
+ */
+YSCore.getURIAddr = function(path,parameter){
+	if($.type(parameter)=="object"){
+		parameter = $.jsonConvertParameter(parameter);
+	}
+	if(parameter){
+		return YSCore.getAbsURI("/AppMain/XMLCodeView.jsp")+"?"+parameter;
+	}else{
+		return YSCore.getAbsURI("/AppMain/XMLCodeView.jsp");
+	}
+};
+/**
+ * 调用agent服务端的命令
+ * @param className 服务类名
+ * @param requestData 请示数据
+ * @param callback 回调函数
+ * @param callbackDataType 回传数据格式，如果该值不传，则默认为json
+ */
+YSCore.invokerAgentCommand = function(className,requestData,callback,callbackDataType){
 	var servletName=YSCore.getContextPath()+"/AgentCommandInvokerServlet";
+	if(!callbackDataType){
+		callbackDataType = "json";
+	}
 	$.ajax({
 		   type: "POST",
 		   url: servletName,
 		   cache: false,
-		   dataType:"json",
+		   dataType:callbackDataType,
 		   data: requestData,
 		   beforeSend:function(xmlHttpRequest){
 			   xmlHttpRequest.setRequestHeader("InvokerAgentCommand", className);

@@ -52,7 +52,7 @@ function initComplete(){
 			toolbar:{ 
 						items: [
 			                { line: true },
-			                { text: '查看XML代码', click: function(){}, iconClass: 'icon_code' },
+			                { text: '查看XML代码', click:showXMLCode, iconClass: 'icon_code' },
 			                { line: true }
 			            ]
 			        },
@@ -122,7 +122,6 @@ function showExecuteUnits(row, detailPanel,callback){
  * 单击一行时
  *由于多个表格共存，因此，选中其中一个表格时，需要取消其它表格的选中状态
  */
-var selectedRow = null;
 function onSelectGridRow(gridIndex,rowdata, rowindex,rowDomElement){
 	for(var i=0;i<allGrids.length;i++){
 		if(gridIndex!=i){
@@ -132,7 +131,28 @@ function onSelectGridRow(gridIndex,rowdata, rowindex,rowDomElement){
 			}
 		}
 	}
-	selectedRow = allGrids[gridIndex].getSelectedRow();
+}
+function getGridSelectedRow(){
+	for(var i=0;i<allGrids.length;i++){
+		var selectedRow = allGrids[i].getSelectedRow();
+		if(selectedRow){
+			return selectedRow;
+		}
+	}
 }
 
+function showXMLCode(){
+	var selectedRow = getGridSelectedRow();
+	if(selectedRow){
+		var para = {"xmlFileName":$.getParameter()["fileName"],"pathExpr":selectedRow["pathExpr"]};
+		var diag = new Dialog();
+		diag.Title = "Task文件参数编辑";
+		diag.URL = YSCore.getURIAddr("/AppMain/XMLCodeView.jsp",para);
+		diag.Width = 800;
+		diag.Height = 400;
+		diag.show();		
+	}else{
+		Dialog.alert("请选择一条记录");
+	}
+}
 </script>

@@ -153,3 +153,18 @@ $.extend({
 		});
 	};	
 })(jQuery);
+
+
+/**
+ * 扩展原型链
+ * @param s
+ * @returns {Number}
+ */
+Array.prototype.indexOf=function(testZi){
+    for(var i=0;i<this.length;i++){
+            if(testZi===this[i]){
+                    return i;
+            }
+    }
+    return -1;
+};

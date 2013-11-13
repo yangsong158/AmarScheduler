@@ -37,6 +37,7 @@
 </body>
 </html>
 <script language="javascript" type="text/javascript">
+var allGrids = [];
 var targetGrid;
 function initComplete(){
 	targetGrid = $("#targetGrid").quiGrid({
@@ -56,8 +57,12 @@ function initComplete(){
 			            ]
 			        },
 			detail: { onShowDetail: showExecuteUnits, height: 'auto' },
+            onSelectRow:function(rowdata, rowindex,rowDomElement){
+          	  onSelectGridRow(allGrids.indexOf(targetGrid),rowdata, rowindex,rowDomElement);
+            },
 			data:[]
   	});
+	allGrids.push(targetGrid);
 	targetGrid.loadData(wrapData([]));	
 	refreshGrid();
 }
@@ -91,21 +96,43 @@ function showExecuteUnits(row, detailPanel,callback){
 		detailPanel.append(childGrid);
 		childGrid.hide();
 		var childGridData = wrapData(data);
-		childGrid.css("margin","2px 2px 2px 10px").quiGrid({
+		
+		childGrid = childGrid.css("margin","2px 2px 2px 10px").quiGrid({
             columns: [
                       { display:'名称'      ,name:'name'          ,align: 'left',width:"20%"},
                       { display:'描述信息'   ,name:'describe'      ,align: 'left',width:"20%"},
                       { display:'执行类1'    ,name:'executeClass'  ,align: 'left',width:"60%"}
                       ],
-                      pageSize: 100,rownumbers:false,checkbox:false,usePager:false,
+                      pageSize: 100,rownumbers:false,checkbox:false,usePager:false,headerRowHeight:26,rowHeight:26,
                       width:"97%",percentWidthMode:true,
                       onAfterShowData: function(){
                     	  detailPanel.find(".loadMessage").hide();
-                    	  childGrid.slideDown("normal");
+                    	  try{childGrid.slideDown("normal");}catch(e){}
                       }, 
+                      onSelectRow:function(rowdata, rowindex,rowDomElement){
+                    	  onSelectGridRow(allGrids.indexOf(childGrid),rowdata, rowindex,rowDomElement);
+                      },
                       data: childGridData
           }); 
+		 allGrids.push(childGrid);
 	});	
+}
+
+/**
+ * 单击一行时
+ *由于多个表格共存，因此，选中其中一个表格时，需要取消其它表格的选中状态
+ */
+var selectedRow = null;
+function onSelectGridRow(gridIndex,rowdata, rowindex,rowDomElement){
+	for(var i=0;i<allGrids.length;i++){
+		if(gridIndex!=i){
+			var selectedRow = allGrids[i].getSelectedRow();
+			if(selectedRow){
+				allGrids[i].unselect(selectedRow);
+			}
+		}
+	}
+	selectedRow = allGrids[gridIndex].getSelectedRow();
 }
 
 </script>

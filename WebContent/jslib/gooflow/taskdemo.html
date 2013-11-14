@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="./js/jquery-1.8.3.min.js"></script>
+<link rel="stylesheet" type="text/css" href="./css/default.css"></link>
+<link rel="stylesheet" type="text/css" href="./css/demo1.css"></link>
+<script type="text/javascript" src="./js/GooFunc.js"></script>
+<script type="text/javascript" src="./js/GooFlow.js"></script>
+<title>流程图DEMO</title>
+<!--[if lt IE 9]>
+<?import namespace="v" implementation="#default#VML" ?>
+<![endif]-->
+<script type="text/javascript">
+var property={
+	width:900,
+	height:500,
+	haveHead:true,//如果haveHead=true，则定义HEAD区的按钮
+	haveTool:true,
+	toolBtns:["start","end","node"],
+	headBtns:["save","undo","redo","reload"],
+	haveGroup:true,
+	useOperStack:true
+};
+var remark={
+	cursor:"选择指针",
+	direct:"连接线",
+	start:"开始结点",
+	end:"结束结点",
+	node:"任务单元",
+	group:"建立新的运行分支"
+};
+$(document).ready(function(){
+	var demo=$.createGooFlow($("#demo"),property);
+	demo.setNodeRemarks(remark);
+	demo.onItemDel=function(id,type){
+		return confirm("确定要删除该单元吗?");
+	}
+	jsondata={
+		title:"任务执行流程图",
+		nodes:{
+			start_node : {name : "开始"      ,left : 67  ,top : 69 ,type : "start" ,width : 24 ,height : 24},
+			unit1      : {name : "任务单元1"  ,left : 219 ,top : 71 ,type : "node"  ,width : 86 ,height : 24},
+			end_node   : {name : "结束"      ,left : 380 ,top : 71 ,type : "end"   ,width : 25 ,height : 24}
+		},
+		lines:{
+			demo_line_3 : {type : "sl" ,from : "start_node" ,to : "unit1"    ,name : "" ,marked : false},
+			demo_line_6 : {type : "sl" ,from : "unit1"      ,to : "end_node" ,name : "" ,marked : false}
+		},
+		areas:{
+			demo_area_8 : {name:"Target1",left:35,top:39,color:"red",width:472,height:114}
+		}
+	};
+	demo.loadData(jsondata);
+});
+</script>
+</head>
+<body>
+<div id="demo"></div>
+</body>
+</html>

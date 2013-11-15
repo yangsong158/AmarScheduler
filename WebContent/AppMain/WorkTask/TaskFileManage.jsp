@@ -37,7 +37,7 @@
 			                { text: '删除', click: onDelete, iconClass: 'icon_delete' },
 			                { line: true },
 			                { text: '查看参数', click: onEditParameter, iconClass: 'icon_edit' },
-			                { text: '查看路由', click: onViewEdit, iconClass: 'icon_edit' },
+			                { text: '查看路由', click: showFlowGraph, iconClass: 'icon_layers' },
 			                { line: true }
 			            ]
 			        },
@@ -119,6 +119,10 @@
 		$(function(){
 			refreshGrid();
 		});
+		
+		function showFlowGraph(){
+			
+		}
 	</script>	
 </body>
 </html>

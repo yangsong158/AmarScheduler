@@ -49,7 +49,7 @@
 			function fillFlowGraph(nodeObject,nodesData,linesData){
 				var needWidth  = nodeObject["maxBreadth"] * (options.nodeWidth +options.nodeSpaceX);	//需要的宽度=当前节点最大广度*(节点宽度+节点空白宽度)
 				var needHeight = nodeObject["maxDepth"]   * (options.nodeHeight+options.nodeSpaceY);	//需要的高度=当前节点最大深度*(节点高度+节点空白高度)
-				var originXAxis = needWidth/2-options.drawStartX-options.originWidth/2;					//计算开始节点的X坐标=第1个节点需要的宽度/2-作图开始位置-原点大小的一半
+				var originXAxis = options.drawStartX+needWidth/2-options.originWidth/2;					//计算开始节点的X坐标=第1个节点需要的宽度/2-作图开始位置-原点大小的一半
 				//生成开始节点
 				nodesData[options.startNode.id] = {
 						name   : options.startNode.name ,
@@ -70,7 +70,7 @@
 				};
 				nodeObject[options.nodeIdField] = options.startNode.id;	//结开始结点的数据区，增加一个id域，并且把当前的ID值赋给它
 				//开始填充节点了
-				startFillGraph(nodesData,linesData,nodeObject,options.drawStartX,1);
+				startFillGraph(nodesData,linesData,nodeObject,options.drawStartX-10,1);
 			};
 			/**
 			 * 从一个节点开始填充流程图
@@ -117,7 +117,7 @@
 					//下一个节点，向右偏移
 					marginLeft += needWidth;
 					//计算子节点的开始偏移位置 = 父节点偏移  + 节点宽度(包括空白)/2 - 需要的宽度/2
-					var subOffset = nodeMarginLeft + options.nodeWidth/2 -  needWidth/2;
+					var subOffset = nodeMarginLeft - (needWidth/2 - options.nodeWidth/2);
 					//递归子节点
 					startFillGraph(nodesData,linesData,node,subOffset,yIdx+1);
 				}

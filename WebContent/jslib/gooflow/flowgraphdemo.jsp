@@ -40,7 +40,7 @@
 		var drawArea=$.createGooFlow($("#drawArea"),property);
 		drawArea.setNodeRemarks(remark);
 		
-		YSCore.invokerAgentCommand("com.amarsoft.scheduler.command.impl.FlowGraphShowCommandImpl",null,function(data){
+		YSCore.invokerAgentCommand("com.amarsoft.scheduler.command.impl.FlowGraphShowCommandImplDemo",null,function(data){
 			var rootNode = data;
 			var nodesData = {};
 			var linesData = {};

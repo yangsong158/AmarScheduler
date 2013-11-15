@@ -36,7 +36,13 @@
 					headBtns:["save","undo","redo","reload"],
 					haveGroup:true                  ,
 					useOperStack:true
-				}
+				},
+				nodeHeight : 40,
+				nodeWidth  : 180,
+				drawStartX : 0,
+				dropStartY : 0,
+				nodeSpaceX : 20,
+				title      : "批量任务执行流程"
 			});
 		});
 	});

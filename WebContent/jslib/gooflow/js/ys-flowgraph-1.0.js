@@ -22,7 +22,7 @@
     			nodeIdField     : "_fg_nid"                 , //被渲染的数据，会给它的json增加一个节点号字段，该属性为字段的名称
     			gooFlowRemark   : {},               //这个是GooFlow的remark参数
     			gooFlowProperty : {},               //这个是GooFlow的property参数
-    			title           : "任务执行流程图"		//显示的标题
+    			title           : "流程图"		    //显示的标题
         };
         options = $.extend(defaults, options);
         
@@ -54,7 +54,7 @@
 				nodesData[options.startNode.id] = {
 						name   : options.startNode.name ,
 						left   : originXAxis            ,
-						top    : options.drawStartX     ,
+						top    : options.dropStartY     ,
 						type   : "start"                ,
 						width  : options.originWidth    ,
 						height : options.originHeight
@@ -70,12 +70,12 @@
 				};
 				nodeObject[options.nodeIdField] = options.startNode.id;	//结开始结点的数据区，增加一个id域，并且把当前的ID值赋给它
 				//开始填充节点了
-				startFillGraph(nodesData,linesData,nodeObject,options.nodeSpaceX,1,1);
+				startFillGraph(nodesData,linesData,nodeObject,options.drawStartX,1);
 			};
 			/**
 			 * 从一个节点开始填充流程图
 			 */
-			function startFillGraph(nodesData,linesData,startNode,marginLeft,xIdx,yIdx){
+			function startFillGraph(nodesData,linesData,startNode,marginLeft,yIdx){
 				var children = startNode["nextUnits"];
 				if(!children||children.length==0)return;
 				for(var i=0;i<children.length;i++){
@@ -116,10 +116,10 @@
 					
 					//下一个节点，向右偏移
 					marginLeft += needWidth;
-					//计算子节点的开始偏移位置 = 父节点偏移  + 节点宽度/2 - 需要的宽度/2
-					var subOffset = nodeMarginLeft + options.nodeWidth/2 - needWidth/2;
+					//计算子节点的开始偏移位置 = 父节点偏移  + 节点宽度(包括空白)/2 - 需要的宽度/2
+					var subOffset = nodeMarginLeft + options.nodeWidth/2 -  needWidth/2;
 					//递归子节点
-					startFillGraph(nodesData,linesData,node,subOffset,xIdx,yIdx+1);
+					startFillGraph(nodesData,linesData,node,subOffset,yIdx+1);
 				}
 			}			
         });

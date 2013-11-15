@@ -37,12 +37,6 @@
 					haveGroup:true                  ,
 					useOperStack:true
 				},
-				nodeHeight : 40,
-				nodeWidth  : 180,
-				drawStartX : 10,
-				dropStartY : 10,
-				nodeSpaceX : 20,
-				originWidth : 80,
 				title      : "批量任务执行流程"
 			});
 		});

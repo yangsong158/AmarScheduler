@@ -70,7 +70,7 @@
 				};
 				nodeObject[options.nodeIdField] = options.startNode.id;	//结开始结点的数据区，增加一个id域，并且把当前的ID值赋给它
 				//开始填充节点了
-				startFillGraph(nodesData,linesData,nodeObject,options.drawStartX-10,1);
+				startFillGraph(nodesData,linesData,nodeObject,options.drawStartX-options.nodeSpaceX/2,1);
 			};
 			/**
 			 * 从一个节点开始填充流程图

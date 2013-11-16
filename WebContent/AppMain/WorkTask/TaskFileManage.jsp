@@ -124,12 +124,17 @@
 			var selectedRow = grid.getSelectedRow();
 			if(selectedRow){
 				var para = {"taskFileName":selectedRow["fileName"]};
-				var diag = new Dialog();
-				diag.Title = "查看任务流程图";
-				diag.URL = YSCore.getURIAddr("/AppMain/FlowGraphShow.jsp",para);
-				diag.Width = 800;
-				diag.Height = 400;
-				diag.show();		
+				//var diag = new Dialog();
+				//diag.Title = "查看任务流程图";
+				//diag.URL = ;
+				//diag.Width = 800;
+				//diag.Height = 400;
+				//diag.show();	
+				parent.tabsView.toggleTabItem(
+						"FG_"+selectedRow.fileName,
+						"查看任务流程图",
+						YSCore.getURIAddr("/AppMain/FlowGraphShow.jsp",para),
+						true);
 			}else{
 				Dialog.alert("请选择一条记录");
 			}			

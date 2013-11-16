@@ -90,7 +90,7 @@
 							name   : node["describe"]                            ,
 							left   : nodeMarginLeft                              ,
 							top    : yIdx*(options.nodeHeight+options.nodeSpaceY),
-							type   : "node"                                      , 
+							type   : node["nodeType"]||"node"                                      , 
 							width  : options.nodeWidth                           ,
 							height : options.nodeHeight
 					};

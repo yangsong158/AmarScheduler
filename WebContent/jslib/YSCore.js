@@ -24,9 +24,9 @@ YSCore.getURIAddr = function(path,parameter){
 		parameter = $.jsonConvertParameter(parameter);
 	}
 	if(parameter){
-		return YSCore.getAbsURI("/AppMain/XMLCodeView.jsp")+"?"+parameter;
+		return YSCore.getAbsURI(path)+"?"+parameter;
 	}else{
-		return YSCore.getAbsURI("/AppMain/XMLCodeView.jsp");
+		return YSCore.getAbsURI(path);
 	}
 };
 /**

@@ -121,7 +121,18 @@
 		});
 		
 		function showFlowGraph(){
-			
+			var selectedRow = grid.getSelectedRow();
+			if(selectedRow){
+				var para = {"taskFileName":selectedRow["fileName"]};
+				var diag = new Dialog();
+				diag.Title = "查看任务流程图";
+				diag.URL = YSCore.getURIAddr("/AppMain/FlowGraphShow.jsp",para);
+				diag.Width = 800;
+				diag.Height = 400;
+				diag.show();		
+			}else{
+				Dialog.alert("请选择一条记录");
+			}			
 		}
 	</script>	
 </body>

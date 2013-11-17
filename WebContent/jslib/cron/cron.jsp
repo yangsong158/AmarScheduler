@@ -7,15 +7,6 @@
 	<title>cron表达式生成</title>
 	<script type="text/javascript" src="<c:url value='/jslib/qui/js/jquery.js' />"></script>
 	<script type="text/javascript" src="<c:url value='/jslib/easyui/jquery.easyui.min.js' />"></script>
-	<script type="text/javascript" src="<c:url value='/jslib/cron/js/js-cron.js' />"></script>
-	<script type="text/javascript">
-		$(function(){
-			$("#cronContainer").cronInit();
-			setTimeout(function(){
-				$("#btnGen").click();
-			},500);
-		});
-	</script>	
 	<link rel="stylesheet" type="text/css" href="<c:url value='/jslib/cron/css/style.css' />"></link>
 	<link rel="stylesheet" type="text/css" href="<c:url value='/jslib/easyui/themes/default/easyui.css' />"></link>
 	<link rel="stylesheet" type="text/css" href="<c:url value='/jslib/easyui/themes/icon.css' />"></link>
@@ -157,3 +148,12 @@
 	</div>
 </body>
 </html>
+<script type="text/javascript" src="<c:url value='/jslib/cron/js/js-cron.js' />"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#cronContainer").cronInit();
+		setTimeout(function(){
+			$("#btnGen").click();
+		},500);
+	});
+</script>	

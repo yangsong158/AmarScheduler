@@ -38,7 +38,7 @@
 				var tabContext = $("#tbiMin",context);
 				var minCheckList = $("#minCheckList",tabContext);
 				var changeTrigger = $("input[name='minTypeChoice']",tabContext);
-				initCheckBoxList(minCheckList,60,"minchk",changeTrigger);
+				initCheckBoxList(minCheckList,60,"minchk",changeTrigger,0);
 			};
 			
 			/**
@@ -48,7 +48,7 @@
 				var tabContext = $("#tbiHour",context);
 				var hourCheckList = $("#hourCheckList",tabContext);
 				var changeTrigger = $("input[name='hourTypeChoice']",tabContext);
-				initCheckBoxList(hourCheckList,24,"hourchk",changeTrigger);
+				initCheckBoxList(hourCheckList,24,"hourchk",changeTrigger,0);
 			};
 			
 			/**
@@ -82,10 +82,13 @@
 			/**
 			 * 初始化复选组件列表通用API
 			 */
-			function initCheckBoxList(checkBoxList,numberCount,chkName,changeTrigger){
+			function initCheckBoxList(checkBoxList,numberCount,chkName,changeTrigger,maxValue){
 				var chkCompList = "";
 				for(var i=0;i<numberCount;i++){
 					var a = i+1;
+					if(typeof(maxValue) != "undefined"&&a==numberCount){
+						a = maxValue;
+					}
 					chkCompList+="<input type='checkbox' value='"+a+"' name='"+chkName+"' disabled='disabled'><span>"+a+"</span>";
 					if(a!=0&&a%10==0){
 						chkCompList+="<br>";

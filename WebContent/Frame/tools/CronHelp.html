@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="exporter-version" content="Evernote Mac 5.4.1 (402012)" />
+<meta name="keywords" content="cron, 定时器" />
+<meta name="altitude" content="32.48723983764648" />
+<meta name="author" content="yangsong158" />
+<meta name="created" content="2013-11-17 00:48:24 +0000" />
+<meta name="latitude" content="23.00876738965706" />
+<meta name="longitude" content="113.7629195267709" />
+<meta name="updated" content="2013-11-17 13:43:59 +0000" />
+<title>Quartz cron时间表达式（新）</title>
+<style type="text/css">
+body{
+	padding:10px;
+}
+.liStar{
+	background-image:url(data:image/gif;base64,R0lGODlhDQAMAPcAAP///166YMLmw3TEdobMiHfFeUelSW7CcKzcrUutTXrGfGrAbNPt1D6OQIjMikKYRGC8YoXLh0GXQ7Les5DQkkSeRvP7893x3bnhukWhR2O9ZT6QQKTYpU2xTzd/ObvjvKXZptPt1JrUm6vbrOj26MvpzLLes9Ds0X7IgDqGPE2zT53Vnli4WpHRk1e3WUKYREutTUWhR7fhuMfnyFi4WnXFd0KYRGa+aILKhFG1Uz6QQIbMiEObRUmpS0qqTP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAD8ALAAAAAANAAwAAAhqAH8IHLhjoEGDJ1KMOHiwQIMADA0+gPFAgEEZAV682FChho8HMWIkkPGjwIMeNAgQ6NABhoQcAASO4JHhxsoeDQoaHFGBZQcDEBsayODBRocHDBNISHAigI4NJxB6KDBwhcKLCw0KWCEwIAA7);
+}
+</style>
+</head>
+<body
+	style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">
+	<h3
+		style="font-family: 'Microsoft YaHei', 微软雅黑; line-height: 20px; background-color: rgb(255, 255, 255); font-size: 15px; margin: 0px; padding: 0px;">CronTrigger配置格式:</h3>
+	<div
+		style="font-family: 'Microsoft YaHei', 微软雅黑; font-size: 12px; line-height: 20px; background-color: rgb(255, 255, 255);">格式:
+		[秒][分][小时][日][月][周][年]</div>
+	<br
+		style="font-family: 'Microsoft YaHei', 微软雅黑; font-size: 12px; line-height: 20px; background-color: rgb(255, 255, 255);" />
+	<table
+		style="font-family: 'Microsoft YaHei', 微软雅黑; font-size: 12px; line-height: 20px; background-color: rgb(255, 255, 255); table-layout: fixed; empty-cells: show; border-collapse: collapse; border: 1px solid rgb(202, 217, 234); color: rgb(102, 102, 102);">
+		<tbody>
+			<tr>
+				<td colspan="5" align="center"
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">
+					<h3 style="font-size: 15px; margin: 0px; padding: 0px;">配置语法</h3>
+				</td>
+			</tr>
+			<tr>
+				<td width="45px"
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">序号</td>
+				<td width="55px"
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">项</td>
+				<td width="65px"
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">是否必填</td>
+				<td width="150px"
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">允许填写的值</td>
+				<td width="150px"
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">允许的通配符</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">1</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">秒</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">是</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">0-59</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">,
+					- * /</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">2</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">分</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">是</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">0-59</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">,
+					- * /</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">3</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">小时</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">是</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">0-23</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">,
+					- * /</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">4</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">日</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">是</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">1-31</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">,
+					- * ? / L W</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">5</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">月</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">是</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">1-12
+					or JAN-DEC</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">,
+					- * /</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">6</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">周</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">是</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">1-7
+					or SUN-SAT</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">,
+					- * ? / L #</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">7</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">年</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">否</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">empty
+					或 1970-2099</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">,
+					- * /</td>
+			</tr>
+		</tbody>
+	</table>
+	<br
+		style="font-family: 'Microsoft YaHei', 微软雅黑; font-size: 12px; line-height: 20px; background-color: rgb(255, 255, 255);" />
+	<br
+		style="font-family: 'Microsoft YaHei', 微软雅黑; font-size: 12px; line-height: 20px; background-color: rgb(255, 255, 255);" />
+	<table
+		style="font-family: 'Microsoft YaHei', 微软雅黑; font-size: 12px; line-height: 20px; background-color: rgb(255, 255, 255); table-layout: fixed; empty-cells: show; border-collapse: collapse; border: 1px solid rgb(202, 217, 234); color: rgb(102, 102, 102);">
+		<tbody>
+			<tr>
+				<td colspan="3" align="center"
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">
+					<h3 style="font-size: 15px; margin: 0px; padding: 0px;">通配符使用说明</h3>
+				</td>
+			</tr>
+			<tr>
+				<td width="35px"
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">通配符</td>
+				<td width="100px"
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">说明</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">使用示例</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">*</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">所有值</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">在秒字段上，表示每秒都触发，在分字段上，表示每分钟都触发</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">?</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">不指定值</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">使用时不需要关心此字段的设置，如在周上设置为?，则表示不管是周几，只要满足其他设置条件，都触发。</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">-</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">区间</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">在分上设置“50-52”，则表示在第50、51、52分都触发，相当于“,”设置的50,51,52</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">,</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">多值指定</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">如在小时上指定为“9,18”，则表示在上午9点和下午6点执行（可作为上下班事件触发）</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">/</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">递增触发</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">如在小时上指定为“0/30”，则表示每半个小时执行一次（即触发时间：0,30
+					60，90……）。</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">L</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">最后（Last）</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;" />
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">L</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">最后（Last）</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">在日字段设置上，表示当月的最后一天（如6月31日、9月30日，会判断闰年的2月）;<br />
+					在周字段上则表示星期六，是按照西方的习惯，此时就等于"7"或"SAT"。<br />
+					在"L"前加上数字，则表示该数据的最后一个。例如在周字段上设置为"5L",则表示“当前月的最后一个星期四" 
+				</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">W</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">最近工作日</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">离指定日期的最近工作日。如设置为10W，则表示离10日最近的工作日。<br />
+					如果10日为工作日，则触发，如果10日喂周六，则在周五触发，如果10日为周六，则在下周一触发。
+				</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">#</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">序号</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">表示每月的第几个周几，在周字段上使用。如设置为3#2，则表示在每月的第2个周三。</td>
+			</tr>
+			<tr>
+				<td colspan="3"
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">使用注意</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">1、</td>
+				<td colspan="2"
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">若设置时，使用英文，则不区分大小写；</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">2、</td>
+				<td colspan="2"
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">L和W是可以组合使用的，此时也只能在日字段上使用。“LW”表示本月最后一个工作日。</td>
+			</tr>
+		</tbody>
+	</table>
+	<br
+		style="font-family: 'Microsoft YaHei', 微软雅黑; font-size: 12px; line-height: 20px; background-color: rgb(255, 255, 255);" />
+	<br
+		style="font-family: 'Microsoft YaHei', 微软雅黑; font-size: 12px; line-height: 20px; background-color: rgb(255, 255, 255);" />
+	<table
+		style="font-family: 'Microsoft YaHei', 微软雅黑; font-size: 12px; line-height: 20px; background-color: rgb(255, 255, 255); table-layout: fixed; empty-cells: show; border-collapse: collapse; border: 1px solid rgb(202, 217, 234); color: rgb(102, 102, 102);">
+		<tbody>
+			<tr>
+				<td colspan="3" align="center"
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">
+					<h3 style="font-size: 15px; margin: 0px; padding: 0px;">常用示例</h3>
+				</td>
+			</tr>
+			<tr>
+				<td width="200px"
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">cron配置</td>
+				<td width="300px"
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">说明</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">0
+					0 12 * * ?</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">每天12点触发</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">0
+					15 10 ? * *</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">每天10点15分触发</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">0
+					15 10 * * ?</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">每天10点15分触发</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">0
+					15 10 * * ? *</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">每天10点15分触发</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">0
+					15 10 * * ? 2014</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">2014年每天10点15分触发</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">0
+					* 14 * * ?</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">每天下午的
+					2点到2点59分每分触发</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;"><span
+					style="-evernote-last-insertion-point: true;" />0 0/5 14 * * ?</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">每天下午的2点到2点59分(整点开始，每隔5分触发)</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">0
+					0/5 14,18 * * ?</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">每天下午的
+					18点到18点59分(整点开始，每隔5分触发)</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">0
+					0-5 14 * * ?</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">每天下午的
+					2点到2点05分每分触发</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">0
+					10,44 14 ? 3 WED</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">3月分每周三下午的
+					2点10分和2点44分触发</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">0
+					15 10 ? * MON-FRI</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">从周一到周五每天上午的10点15分触发</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">0
+					15 10 15 * ?</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">每月15号上午10点15分触发</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">0
+					15 10 L * ?</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">每月最后一天的10点15分触发</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">0
+					15 10 ? * 6L</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">每月最后一周的星期五的10点15分触发</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">0
+					15 10 ? * 6L 2014-2025</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">从2014年到2025年每月最后一周的星期五的10点15分触发</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">0
+					15 10 ? * 6#3</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">每月的第三周的星期五开始触发</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">0
+					0 12 1/5 * ?</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">每月的第一个中午开始每隔5天触发一次</td>
+			</tr>
+			<tr>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">0
+					11 11 11 11 ?</td>
+				<td
+					style="height: 20px; border: 1px solid rgb(202, 217, 234); padding: 5px 8px 5px 0px;">每年的11月11号
+					11点11分触发(光棍节)</td>
+			</tr>
+		</tbody>
+	</table>
+	<br />
+	<h2
+		style="background-color: rgb(255, 255, 255); font-family: 'Microsoft YaHei', 微软雅黑; line-height: 20px; font-size: 17px; margin: 7px; padding: 0px;">
+		<br />
+	</h2>
+	<h2
+		style="background-color: rgb(255, 255, 255); font-family: 'Microsoft YaHei', 微软雅黑; line-height: 20px; font-size: 17px; margin: 7px; padding: 0px;">
+		<br />
+	</h2>
+	<h2
+		style="background-color: rgb(255, 255, 255); font-family: 'Microsoft YaHei', 微软雅黑; line-height: 20px; font-size: 17px; margin: 7px; padding: 0px;">各设置项设置说明</h2>
+	<hr style="font-size: 12px; background-color: rgb(255, 255, 255);" />
+	<br style="font-size: 12px; background-color: rgb(255, 255, 255);" />
+	<h3
+		style="background-color: rgb(255, 255, 255); font-family: 'Microsoft YaHei', 微软雅黑; line-height: 20px; font-size: 15px; margin: 4px; padding: 0px;">不指定触发</h3>
+	<hr width="300px" align="left"
+		style="font-size: 12px; background-color: rgb(255, 255, 255); font-family: 'Microsoft YaHei', 微软雅黑; line-height: 20px;" />
+	<div
+		style="font-size: 12px; background-color: rgb(255, 255, 255); font-family: 'Microsoft YaHei'; line-height: 20px; margin-left: 15px;">
+		<p
+			class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;">不指定触发，字符为“?”，可设置在日和周字段上。且日和周上不能同时设置为“?”</p>
+		<p
+			class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;">表示为在触发时不需要关心此字段的设置</p>
+		<p
+			class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;">如设置在日字段上，则只要满足其他字段的设置条件，都触发</p>
+	</div>
+	<br style="font-size: 12px; background-color: rgb(255, 255, 255);" />
+	<h3
+		style="background-color: rgb(255, 255, 255); font-family: 'Microsoft YaHei', 微软雅黑; line-height: 20px; font-size: 15px; margin: 4px; padding: 0px;">每次触发</h3>
+	<hr width="300px" align="left"
+		style="font-size: 12px; background-color: rgb(255, 255, 255); font-family: 'Microsoft YaHei', 微软雅黑; line-height: 20px;" />
+	<div
+		style="font-size: 12px; background-color: rgb(255, 255, 255); font-family: 'Microsoft YaHei'; line-height: 20px; margin-left: 15px;">
+		<p
+			class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;">每次都触发，字符为“*”，可设置在所有字段上。</p>
+		<p
+			class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;">设置在秒上，表示每秒都触发；</p>
+		<p
+			class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;">设置在分上，表示每分钟都触发。</p>
+	</div>
+	<br style="font-size: 12px; background-color: rgb(255, 255, 255);" />
+	<h3
+		style="background-color: rgb(255, 255, 255); font-family: 'Microsoft YaHei', 微软雅黑; line-height: 20px; font-size: 15px; margin: 4px; padding: 0px;">指定区间内循环触发</h3>
+	<hr width="300px" align="left"
+		style="font-size: 12px; background-color: rgb(255, 255, 255); font-family: 'Microsoft YaHei', 微软雅黑; line-height: 20px;" />
+	<div
+		style="font-size: 12px; background-color: rgb(255, 255, 255); font-family: 'Microsoft YaHei'; line-height: 20px; margin-left: 15px;">
+		<p
+			class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;">指定区间内循环触发，字符为“-”，可设置在所有字段上。</p>
+		<p
+			class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;">此字段的设置实际是对指定设置“,”的一种简化，</p>
+		<p
+			class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;">如设置为3-6，等同于设置3,4,5,6</p>
+		<p
+			class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;">设置在分上，表示第3、4、5、6分钟都会触发</p>
+	</div>
+	<br style="font-size: 12px; background-color: rgb(255, 255, 255);" />
+	<h3
+		style="background-color: rgb(255, 255, 255); font-family: 'Microsoft YaHei', 微软雅黑; line-height: 20px; font-size: 15px; margin: 4px; padding: 0px;">递增触发</h3>
+	<hr width="300px" align="left"
+		style="font-size: 12px; background-color: rgb(255, 255, 255); font-family: 'Microsoft YaHei', 微软雅黑; line-height: 20px;" />
+	<div
+		style="font-size: 12px; background-color: rgb(255, 255, 255); font-family: 'Microsoft YaHei'; line-height: 20px; margin-left: 15px;">
+		<p
+			class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;">递增触发，字符为“/”，可设置在所有字段上。</p>
+		<p
+			class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;">表示按指定时间开始，递增一段时间后触发</p>
+		<p
+			class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;">如设置在分上为5/10，表示从当前时间开始，在分钟未5分钟时开始触发，并每隔10分钟触发一次。如当前时间为10:23，则触发时间为：11:05、11:15、11:25、11:35、11:45…</p>
+	</div>
+	<br style="font-size: 12px; background-color: rgb(255, 255, 255);" />
+	<h3
+		style="background-color: rgb(255, 255, 255); font-family: 'Microsoft YaHei', 微软雅黑; line-height: 20px; font-size: 15px; margin: 4px; padding: 0px;">最后触发</h3>
+	<hr width="300px" align="left"
+		style="font-size: 12px; background-color: rgb(255, 255, 255); font-family: 'Microsoft YaHei', 微软雅黑; line-height: 20px;" />
+	<div
+		style="font-size: 12px; background-color: rgb(255, 255, 255); font-family: 'Microsoft YaHei'; line-height: 20px; margin-left: 15px;">
+		<p
+			class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;">最后触发，字符为“L”，可设置在日和周字段上。</p>
+		<p
+			class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;">在日字段设置上，表示当月的最后一天（如6月31日、9月30日，会判断闰年的2月）</p>
+		<p
+			class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;" />
+		<p
+			class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;">在周字段上则表示星期六，是按照西方的习惯，此时就等于“7”或“SAT”。</p>
+		<p
+			class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;" />
+		<p
+			class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;">在“L”前加上数字，则表示该数据的最后一个。例如在周字段上设置为“5L”,则表示“当前月的最后一个星期四”</p>
+		<p
+			style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;">如当前时间为：2013-08-07
+			16:25:07，设置在日上为L，表示2013-08-31日触发</p>
+	</div>
+	<br style="font-size: 12px; background-color: rgb(255, 255, 255);" />
+	<h3
+		style="background-color: rgb(255, 255, 255); font-family: 'Microsoft YaHei', 微软雅黑; line-height: 20px; font-size: 15px; margin: 4px; padding: 0px;">最近工作日触发</h3>
+	<hr width="300px" align="left"
+		style="font-size: 12px; background-color: rgb(255, 255, 255); font-family: 'Microsoft YaHei', 微软雅黑; line-height: 20px;" />
+	<div
+		style="font-size: 12px; background-color: rgb(255, 255, 255); font-family: 'Microsoft YaHei'; line-height: 20px; margin-left: 15px;">
+		<p
+			class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;">最近工作日触发，字符为“W”，只能设置在日字段上。</p>
+		<p
+			class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;">表示离指定日期的最近工作日触发。</p>
+		<p
+			class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;">如设置为10W，则表示离10日最近的工作日。如果10日为工作日，则触发，如果10日为周六，则在周五触发，如果10日为周六，则在下周一触发。</p>
+	</div>
+	<br style="font-size: 12px; background-color: rgb(255, 255, 255);" />
+	<h3
+		style="background-color: rgb(255, 255, 255); font-family: 'Microsoft YaHei', 微软雅黑; line-height: 20px; font-size: 15px; margin: 4px; padding: 0px;">指定触发</h3>
+	<hr width="300px" align="left"
+		style="font-size: 12px; background-color: rgb(255, 255, 255); font-family: 'Microsoft YaHei', 微软雅黑; line-height: 20px;" />
+	<div
+		style="font-size: 12px; background-color: rgb(255, 255, 255); font-family: 'Microsoft YaHei'; line-height: 20px; margin-left: 15px;">
+		<p
+			class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;">指定触发，字符为“,”，可设置在所有字段上。</p>
+		<p
+			class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;">表示在满足指定值时触发，当设置为连续的值时，和使用“-”等价，如设置为2,3,4等价于设置2-4</p>
+		<p
+			class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;" />
+		<p
+			class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;">如在小时上设置为：3,6,9,12,15则表示在3点、6点、9点、12点、下午3点触发</p>
+	</div>
+	<br style="font-size: 12px; background-color: rgb(255, 255, 255);" />
+	<h3
+		style="background-color: rgb(255, 255, 255); font-family: 'Microsoft YaHei', 微软雅黑; line-height: 20px; font-size: 15px; margin: 4px; padding: 0px;">序号触发</h3>
+	<hr width="300px" align="left"
+		style="font-size: 12px; background-color: rgb(255, 255, 255); font-family: 'Microsoft YaHei', 微软雅黑; line-height: 20px;" />
+	<div style="font-size: 12px; background-color: rgb(255, 255, 255);">
+		<div
+			style="font-family: 'Microsoft YaHei'; line-height: 20px; margin-left: 15px;">
+			<p
+				class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;">
+				序号触发，字符为“#”，只能设置在周字段上。 <br />
+			</p>
+			<p
+				class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;">表示每月的第几个周几 </p>
+		</div>
+	</div>
+	<div
+		style="font-size: 12px; background-color: rgb(255, 255, 255); font-family: 'Microsoft YaHei'; line-height: 20px; margin-left: 15px;">
+		<p
+			class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;">
+			如设置为3#2，则表示在每月的第2个周三触发。 <br />
+		</p>
+		<p
+			class="liStar" style="text-indent: 1.5em; margin-bottom: 3px; margin-top: 2px; background-attachment: scroll; background-color: transparent; background-position: 0% 0%; background-repeat: no-repeat no-repeat;" />
+	</div>
+	<div>
+		<br />
+	</div>
+	<font color="#FF0000" face="Microsoft YaHei, Courier, monospace"
+		style="font-size: 12px; background-color: rgb(255, 255, 255);">注意：设置在日和周时，需要考虑是否冲突。具体如下：</font>
+	<div style="font-size: 12px; background-color: rgb(255, 255, 255);">
+		<font color="#FF0000" face="Microsoft YaHei, Courier, monospace">1、日和周字段不能同时设置为“?”；</font>
+	</div>
+	<div style="font-size: 12px; background-color: rgb(255, 255, 255);">
+		<font color="#FF0000" face="Microsoft YaHei, Courier, monospace">2、当在日字段上设置为“*”，“,”，“-”，“*”，“?”，“/”，“L”，“W”之一时，周字段只能设置为“?”；</font>
+	</div>
+	<div style="font-size: 12px; background-color: rgb(255, 255, 255);">
+		<font color="#FF0000" face="Microsoft YaHei, Courier, monospace">3、当在周字段上设置为“*”，“,”，“-”，“*”，“?”，“/”，“L”，“#”之一时，日字段只能设置为“?”。</font>
+	</div>
+	<div style="font-size: 12px; background-color: rgb(255, 255, 255);">
+		<font color="#FF0000" face="Microsoft YaHei, Courier, monospace">4、年的设置项为可选，当不设置时为“*”。</font><font
+			face="Microsoft YaHei"><span style="line-height: 20px;"> </span></font><br />
+	</div>
+	<div>
+		<span
+			style="text-indent: 1.5em; font-family: 'Microsoft YaHei'; line-height: 20px; font-size: 12px;"><br /></span>
+	</div>
+</body>
+</html>

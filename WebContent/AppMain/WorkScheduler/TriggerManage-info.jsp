@@ -40,8 +40,9 @@
 			<tr>
 				<td>触发表达式：</td>
 				<td><input id="triggerExpr" type="text" style="width:200px;"/>
-					<input type="button" value="表达式向导" id="btn_EditCronExpr" />
-					<input type="button" value="表达式帮助" id="btn_EditCronExpr" />
+					<input type="button" value="表达式向导" id="btn_CronGen" />
+					<input type="button" value="表达式帮助" id="btn_CronHelp" />
+					<input type="button" value="表达式解析" id="btn_CronParse" />
 				</td>
 			</tr>
 			<tr>
@@ -86,8 +87,60 @@
 			$(this).next(".star").hide();
 			$(this).after("<span class='readOnlyText'>"+$(this).val()+"</span>");
 		});
+		
+		$("#btn_CronGen").click(cronExprGen);
+		$("#btn_CronHelp").click(cronHelp);
+		$("#btn_CronParse").click(cronParse);
 	});
 	
+	/**
+	 *cron表达式生成
+	 */
+	function cronExprGen(){
+		var diag = new parent.Dialog();
+		diag.Title = "时间表达式生成";
+		diag.Width = 520;
+		diag.Height = 400;
+		diag.ShowButtonRow = true;
+		diag.ButtonAlign = "center";
+		diag.URL = YSCore.getURIAddr("/jslib/cron/cron.jsp");
+	    diag.OKEvent = function(){
+	        var inputValue = diag.innerFrame.contentWindow.getExpression();
+	        $("#triggerExpr").val(inputValue);
+	        diag.close();
+	       };
+		diag.show();
+	};
+	/**
+	 *cron表达式帮助
+	 */	
+	function cronHelp(){
+		var diag = new parent.Dialog();
+		diag.Title = "时间表达式帮助";
+		diag.Width = 700;
+		diag.Height = 400;
+		diag.ButtonAlign = "center";
+		diag.URL = YSCore.getURIAddr("/Frame/tools/CronReadMe.html");
+		diag.show();		
+	};
+	/**
+	 *cron表达式解析
+	 */	
+	function cronParse(){
+		var cronExpr = $("#triggerExpr").val();
+		if(!cronExpr){
+			parent.Dialog.alert("请先填写时间表达式");
+			return;
+		}
+		var diag = new parent.Dialog();
+		diag.Title = "时间表达式解析结果";
+		diag.Width = 300;
+		diag.Height = 250;
+		diag.MessageTitle = "前10次执行时间";
+		diag.ButtonAlign = "center";
+		diag.URL = YSCore.getURIAddr("/Frame/tools/CronExprParseShow.jsp",{"cronExpr":cronExpr});
+		diag.show();		
+	};
 	//执行提交
 	function doSubmit(){
 		validateForm(formContainer,function(){

@@ -2,40 +2,45 @@
 	$.fn.cronInit = function(options){
 		var defaults = {};
 		options = $.extend(defaults, options);
+	
+		var context = $(this);
+		initChoiceSec(context);
+		initChoiceMin(context);
+		initChoiceHour(context);
+		initChoiceDay(context);
+		initChoiceMonth(context);
+		initChoiceWeek(context);
+		initChoiceYear(context,(new Date()).getFullYear()-20,90);
 		
-		return this.each(function(){
-			var context = $(this);
-			initChoiceSec(context);
-			initChoiceMin(context);
-			initChoiceHour(context);
-			initChoiceDay(context);
-			initChoiceMonth(context);
-			initChoiceWeek(context);
-			initChoiceYear(context,(new Date()).getFullYear()-20,90);
-			
-			$("#btnGen").click(function(){
-				var sec = getSecValue(context);
-				var min = getMinValue(context);
-				var hour = getHourValue(context);
-				var day = getDayValue(context);
-				var mon = getMonValue(context);
-				var week = getWeekValue(context);
-				var year = getYearValue(context);
-				if(!year)year = "";
-				$("#exSec").val(sec);
-				$("#exMin").val(min);
-				$("#exHour").val(hour);
-				$("#exDay").val(day);
-				$("#exMon").val(mon);
-				$("#exWeek").val(week);
-				$("#exYear").val(year);
-				//最终生成最终表达式
-				$("#txtCron").val(sec+" "+min+" "+hour+" "+day+" "+mon+" "+week+" "+year);
-			});
-			
-/**=============================================
- *                 初始化复选框选择器
- * ============================================= */
+		$("input",context).click(function(){
+			context.getExprValue();
+			$("#txtCron").val(comp.getExprValue());
+		});
+		return context;
+	};
+	$.fn.getExprValue = function(){
+		var context = $(this);
+		var sec = getSecValue(context);
+		var min = getMinValue(context);
+		var hour = getHourValue(context);
+		var day = getDayValue(context);
+		var mon = getMonValue(context);
+		var week = getWeekValue(context);
+		var year = getYearValue(context);
+		if(!year)year = "";
+		$("#exSec").val(sec);
+		$("#exMin").val(min);
+		$("#exHour").val(hour);
+		$("#exDay").val(day);
+		$("#exMon").val(mon);
+		$("#exWeek").val(week);
+		$("#exYear").val(year);
+		//最终生成最终表达式
+		return (sec+" "+min+" "+hour+" "+day+" "+mon+" "+week+" "+year);
+	};
+	/**=============================================
+	 *                 初始化复选框选择器
+	 * ============================================= */
 			/**
 			 * 初始化秒选择
 			 */
@@ -105,7 +110,7 @@
 					yearCompList+="<input type='checkbox' value='"+a+"' name='yearchk'><span>"+a+"</span>";
 					if((i+1)%10==0){
 						yearCompList+="<br>";
-					}
+					};
 				}
 				yearCheckList.append(yearCompList);
 			};
@@ -119,7 +124,7 @@
 					chkCompList+="<input type='checkbox' value='"+a+"' name='"+chkName+"' disabled='disabled'><span>"+a+"</span>";
 					if((i+1)%10==0){
 						chkCompList+="<br>";
-					}
+					};
 				}
 				//添加组件
 				checkBoxList.append(chkCompList);
@@ -133,9 +138,9 @@
 				});
 				
 			};
-/**=============================================
-*                 初始化复选框选择器
-* ============================================= */
+	/**=============================================
+	*                 初始化复选框选择器
+	* ============================================= */
 			/**
 			 * 取秒数
 			 */
@@ -153,7 +158,7 @@
 					return startValue+"/"+endValue;
 				}else{
 					return chkTypeValue;
-				}
+				};
 			};
 			/**
 			 * 取分钟数
@@ -172,7 +177,7 @@
 					return startValue+"/"+endValue;
 				}else{
 					return chkTypeValue;
-				}
+				};
 			};
 			/**
 			 * 取小时的值
@@ -187,7 +192,7 @@
 					return chkValues.join(",");					
 				}else{
 					return chkTypeValue;
-				}				
+				};				
 			};
 			/**
 			 * 取天数的值
@@ -202,7 +207,7 @@
 					return chkValues.join(",");						
 				}else{
 					return chkTypeValue;
-				}				
+				};				
 			};
 			/**
 			 * 取月份的值
@@ -217,7 +222,7 @@
 					return chkValues.join(",");						
 				}else{
 					return chkTypeValue;
-				}					
+				};					
 			};
 			/**
 			 * 取星期的值
@@ -232,7 +237,7 @@
 					return chkValues.join(",");						
 				}else{
 					return chkTypeValue;
-				}					
+				};					
 			};
 			/**
 			 * 取年的值
@@ -243,7 +248,5 @@
 					chkValues.push($(this).val());
 				});
 				return chkValues.join(",");	
-			};
-		});
-	};
+			};	
 })(jQuery);

@@ -12,7 +12,6 @@
 	<style type="text/css">
 		#cronContainer{
 			margin:auto;
-			margin-top:40px;
 			font-size:13px;
 		}
 		#cronContainer fieldset{
@@ -54,9 +53,11 @@
 				<!-- 秒标签 -->
 				<div title="秒" id="tbiSec" style="padding: 10px">
 					<ul>
+						<!-- 
 						<li><input type="radio" name="secTypeChoice" checked="checked" value="0">0</li>
+						 -->
 						<li>
-							<input type="radio" name="secTypeChoice" value="*">周期 从 
+							<input type="radio" name="secTypeChoice" checked="checked" value="*">周期 从 
 								<input class="easyui-numberspinner" data-options="min:0,max:60" style="width: 80px;" value="0" id="secStart">
 								秒开始,每
 								<input class="easyui-numberspinner" data-options="min:1,max:60" style="width: 80px;" value="0" id="secEnd"></input>
@@ -71,9 +72,11 @@
 				<!-- 分钟标签 -->
 				<div title="分" id="tbiMin" style="padding: 10px">
 					<ul>
+						<!-- 
 						<li><input type="radio" name="minTypeChoice" checked="checked" value="0">0</li>
+						 -->
 						<li>
-							<input type="radio" name="minTypeChoice" value="*">周期 从 
+							<input type="radio" name="minTypeChoice" checked="checked" value="*">周期 从 
 								<input class="easyui-numberspinner" data-options="min:0,max:60" style="width: 80px;" value="0" id="minStart">
 								分开始,每
 								<input class="easyui-numberspinner" data-options="min:1,max:60" style="width: 80px;" value="0" id="minEnd"></input>
@@ -178,18 +181,27 @@
 			</fieldset>
 		</div>
 		<div class="btnBar">
-			<input type="button" class="btn" value="生成" id="btnGen"/>
-			<input type="button" class="btn" value="解析" id="btnParse" />
+			<!-- 
+			<input type="button" class="btn" value="确定" id="btnOK"/>
+			<input type="button" class="btn" value="生成预览" id="btnGen"/>
+			 <input type="button" class="btn" value="解析" id="btnParse" />
+			 -->
 		</div>
 	</div>
 </body>
 </html>
 <script type="text/javascript" src="<c:url value='/jslib/cron/js/js-cron.js' />"></script>
 <script type="text/javascript">
-	$(function(){
-		$("#cronContainer").cronInit();
-		setTimeout(function(){
-			$("#btnGen").click();
-		},500);
-	});
+var comp = null;
+$(function(){
+	comp = $("#cronContainer");
+	comp.cronInit();
+	setTimeout(function(){
+		$("#txtCron").val(comp.getExprValue());
+	},200);
+});
+function getExpression(){
+	$("#txtCron").val(comp.getExprValue());
+	return $("#txtCron").val();
+}
 </script>	

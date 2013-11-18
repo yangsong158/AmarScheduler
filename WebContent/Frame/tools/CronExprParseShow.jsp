@@ -9,6 +9,9 @@
 	<script type="text/javascript" src="<c:url value='/jslib/YSCore.js' />"></script>
 	<style type="text/css">
 		ul li{list-style: none;}
+		#result{
+			font-size:14px;
+		}
 		#result .rowNumber{
 			width:20px;
 			text-align: right;

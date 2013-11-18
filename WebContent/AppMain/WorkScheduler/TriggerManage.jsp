@@ -49,7 +49,7 @@
 			var diag = new Dialog();
 			diag.Title = "新建触发器";
 			diag.Width = 900;
-			diag.Height = 500;
+			diag.Height = 400;
 			diag.URL = YSCore.getURIAddr("/AppMain/WorkScheduler/TriggerManage-info.jsp");
 			diag.show();			
 		}

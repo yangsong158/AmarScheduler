@@ -12,7 +12,7 @@
 <script type="text/javascript" src="<c:url value='/jslib/qui/js/form/validationRule.js' />"></script>
 <script type="text/javascript" src="<c:url value='/jslib/qui/js/form/validation.js' />"></script>
 <body>
-	<form class="padding_top10" id="fileInfo">
+	<form class="padding_top10" id="triggerInfo" >
 		<table class="tableStyle" formMode="line">
 			<tr>
 				<td>触发器名称：</td>
@@ -29,7 +29,7 @@
 			<tr>
 				<td>触发类型：</td>
 				<td>
-					<select id="triggerType" style="width:100px;">
+					<select id="triggerType">
 						<option value="">----请选择----</option>
 						<option value="CRON_EXP">cron表达式</option>
 						<option value="FILE_FLAG">文件存在</option>
@@ -39,7 +39,7 @@
 			</tr>
 			<tr>
 				<td>触发表达式：</td>
-				<td><input id="triggerExpr" type="text" style="width:200px;"/>
+				<td><input id="triggerExpr" type="text" style="width:400px;"/>
 					<input type="button" value="表达式向导" id="btn_CronGen" />
 					<input type="button" value="表达式帮助" id="btn_CronHelp" />
 					<input type="button" value="表达式解析" id="btn_CronParse" />
@@ -58,7 +58,7 @@
 				<td><input id="updateTime" type="text" style="width:150px;" readonly="readonly" disabled="disabled"/></td>
 			</tr>
 			<tr>
-				<td colspan="2">
+				<td colspan="2" style="text-align: center;">
 					<input type="button" value="保存" onclick="doSubmit()"/>
 					<input type="reset" value="取消" onclick="doCancel()" />
 				</td>
@@ -91,8 +91,24 @@
 		$("#btn_CronGen").click(cronExprGen);
 		$("#btn_CronHelp").click(cronHelp);
 		$("#btn_CronParse").click(cronParse);
+		initTriggerChange();
 	});
 	
+	function initTriggerChange(){
+		$("#triggerType").change(function(){
+			var v = $(this).val();
+			if(v=="CRON_EXP"){
+				$("#btn_CronGen").css("visibility","visible");
+				$("#btn_CronHelp").css("visibility","visible");
+				$("#btn_CronParse").css("visibility","visible");
+			}else{
+				$("#btn_CronGen").css("visibility","hidden");
+				$("#btn_CronHelp").css("visibility","hidden");
+				$("#btn_CronParse").css("visibility","hidden");
+			}
+		});
+		$("#triggerType").change();
+	}
 	/**
 	 *cron表达式生成
 	 */

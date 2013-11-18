@@ -29,7 +29,7 @@
 			<tr>
 				<td>触发类型：</td>
 				<td>
-					<select id="triggerType">
+					<select id="triggerType" class="validate[required]">
 						<option value="">----请选择----</option>
 						<option value="CRON_EXP">cron表达式</option>
 						<option value="FILE_FLAG">文件存在</option>
@@ -39,7 +39,7 @@
 			</tr>
 			<tr>
 				<td>触发表达式：</td>
-				<td><input id="triggerExpr" type="text" style="width:400px;"/>
+				<td><input id="triggerExpr" type="text" style="width:400px;" class="validate[required]"/>
 					<input type="button" value="表达式向导" id="btn_CronGen" />
 					<input type="button" value="表达式帮助" id="btn_CronHelp" />
 					<input type="button" value="表达式解析" id="btn_CronParse" />
@@ -59,8 +59,8 @@
 			</tr>
 			<tr>
 				<td colspan="2" style="text-align: center;">
-					<input type="button" value="保存" onclick="doSubmit()"/>
-					<input type="reset" value="取消" onclick="doCancel()" />
+					<button type="button" onclick="doSubmit()"><span class="icon_save">保存</span></button>
+					<button type="button" onclick="doCancel()"><span class="icon_no">取消</span></button>
 				</td>
 			</tr>
 		</table>
@@ -72,21 +72,16 @@
 	//由于表单中没有写name元素，因此需要把id元素复制一份name出来
 	$(function(){
 		//初始化
-		formContainer = $("#fileInfo");
+		formContainer = $("#triggerInfo");
 		formContainer.initNamePropertyWithId();
 		formContainer.requiredFieldsAppendStar();
 		//如果提交了数据，则使用提交的数据来填充
 		var data = $.getParameter();
-		if(data["fileName"]){
+		if(data["name"]){
 			formContainer.fillForm(data);
-			$("input[name='fileName']",formContainer).attr({"readonly":"readonly"});
+			$("input[name='name']",formContainer).attr({"readonly":"readonly"});
+			$("#triggerType").setValue(data["triggerType"]);
 		}
-		//处理只读区显示为文本
-		$("input[readonly]",formContainer).each(function(){
-			$(this).hide();
-			$(this).next(".star").hide();
-			$(this).after("<span class='readOnlyText'>"+$(this).val()+"</span>");
-		});
 		
 		$("#btn_CronGen").click(cronExprGen);
 		$("#btn_CronHelp").click(cronHelp);
@@ -161,7 +156,8 @@
 	function doSubmit(){
 		validateForm(formContainer,function(){
 	    	var formData = formContainer.serializeJson();
-			YSCore.invokerAgentCommand("com.amarsoft.scheduler.command.impl.TaskFileRecordSaveCommandImpl",formData,function(data){
+	    	formData["triggerType"] = $("#triggerType").val();//单独处理这个东东，qui表单序列化为对象，select组件有问题
+			YSCore.invokerAgentCommand("com.amarsoft.scheduler.command.impl.TaskTriggerRecordSaveCommandImpl",formData,function(data){
 				if(parseInt(data)==1){
 					parent.refreshGrid();
 					doCancel();

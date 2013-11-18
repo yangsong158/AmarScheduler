@@ -32,16 +32,16 @@
 			</tr>
 			<tr>
 				<td>创建日期：</td>
-				<td><input id="createTime" type="text" style="width:150px;" readonly="readonly" disabled="disabled" /></td>
+				<td><input id="createTime" type="text" style="width:150px;" readonly="readonly" /></td>
 			</tr>
 			<tr>
 				<td>更新日期：</td>
-				<td><input id="updateTime" type="text" style="width:150px;" readonly="readonly" disabled="disabled"/></td>
+				<td><input id="updateTime" type="text" style="width:150px;" readonly="readonly" /></td>
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="button" value="保存" onclick="doSubmit()"/>
-					<input type="reset" value="取消" onclick="doCancel()" />
+					<button type="button" onclick="doSubmit()"><span class="icon_save">保存</span></button>
+					<button type="button" onclick="doCancel()"><span class="icon_no">取消</span></button>
 				</td>
 			</tr>
 		</table>
@@ -62,12 +62,6 @@
 			formContainer.fillForm(data);
 			$("input[name='fileName']",formContainer).attr({"readonly":"readonly"});
 		}
-		//处理只读区显示为文本
-		$("input[readonly]",formContainer).each(function(){
-			$(this).hide();
-			$(this).next(".star").hide();
-			$(this).after("<span class='readOnlyText'>"+$(this).val()+"</span>");
-		});
 	});
 	
 	//执行提交

@@ -174,7 +174,7 @@ $.extend({
 	 */
 	$.fn.requiredFieldsAppendStar = function(){
 		var formContext = $(this);
-		$("input[id],textarea[id]",formContext).each(function(){
+		$("input[id],textarea[id],select[id]",formContext).each(function(){
 			var field = $(this);
 			if(field.hasClass("validate[required]")){
 				field.after('<span class="star">*</span>');

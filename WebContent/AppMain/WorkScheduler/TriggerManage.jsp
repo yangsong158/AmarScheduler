@@ -13,37 +13,34 @@
 	<div id="maingrid"></div>
 	<!--数据表格end-->
 	<script type="text/javascript">
-		    //定义本地数据
-	        var grid;
-			function initComplete(){
-				grid = $("#maingrid").quiGrid({
-			       columns: [ 
-				                { display: '排序号',	name: 'sortNo',		align: 'left',	width: "5%", isSort:true},
-				                { display: '触发器名称',	name: 'name',		align: 'left',	width: "20%", isSort:true},
-				                { display: '触发器类型',	name: 'triggerType',		align: 'left',	width: "5%"},
-				                { display: '触发器说明',	name: 'describe',		align: 'left',	width: "30%"},
-				                { display: '触发器内容',	name: 'triggerExpr',		align: 'left',	width: "40%", isSort:true }
-			         ], 
-			        data:[], pageSize: 10, sortName: 'sortNo',rownumbers:true,checkbox:false,usePager:false,
-			        height: '100%', width:"100%",percentWidthMode:true,
-			        //顶部图标按钮栏
-					toolbar: 
-						{ 
-						items: [
-			                { line: true },
-			                { text: '创建', click: onAdd, iconClass: 'icon_add' },
-			                { text: '编辑', click: onEditInfo, iconClass: 'icon_edit' },
-			                { text: '删除', click: onDelete, iconClass: 'icon_delete' },
-			                { line: true },
-			                { text: '手动触发', click: onEditParameter, iconClass: 'icon_edit' },
-			                { line: true }
-			            ]
-			        },
-	                onDblClickRow : function (rowdata, rowid, rowobj){
-	                	openTaskDetailInTab(rowdata);
-	                } 
-	         	});
-			};
+	    //定义本地数据
+        var grid;
+		function initComplete(){
+			grid = $("#maingrid").quiGrid({
+		       columns: [ 
+			                { display: '排序号',	name: 'sortNo',		align: 'left',	width: "5%", isSort:true},
+			                { display: '触发器名称',	name: 'name',		align: 'left',	width: "20%", isSort:true},
+			                { display: '触发器类型',	name: 'triggerType',		align: 'left',	width: "5%",render: renderCode},
+			                { display: '触发器说明',	name: 'describe',		align: 'left',	width: "30%"},
+			                { display: '触发器内容',	name: 'triggerExpr',		align: 'left',	width: "40%", isSort:true }
+		         ], 
+		        data:[], pageSize: 10, sortName: 'sortNo',rownumbers:true,checkbox:false,usePager:false,
+		        height: '100%', width:"100%",percentWidthMode:true,
+		        //顶部图标按钮栏
+				toolbar: 
+					{ 
+					items: [
+		                { line: true },
+		                { text: '创建', click: onAdd, iconClass: 'icon_add' },
+		                { text: '编辑', click: onEditInfo, iconClass: 'icon_edit' },
+		                { text: '删除', click: onDelete, iconClass: 'icon_delete' },
+		                { line: true },
+		                { text: '立刻运行', click: runAtOnce, iconClass: 'icon_pc' },
+		                { line: true }
+		            ]
+		        }
+         	});
+		};
 		//修改
 		function onAdd(){
 			var diag = new Dialog();
@@ -61,18 +58,11 @@
 				return;
 			}
 			var diag = new Dialog();
-			diag.Title = "Task文件参数编辑";
-			diag.URL = "TaskFileManage-dialog-fileinfo.jsp?"+$.jsonConvertParameter(row);
-			diag.Height = 300;
+			diag.Title = "查看触发器信息";
+			diag.Width = 900;
+			diag.Height = 400;
+			diag.URL = YSCore.getURIAddr("/AppMain/WorkScheduler/TriggerManage-info.jsp",row);
 			diag.show();
-		}
-		function onViewEdit(){
-			openTaskDetailInTab(grid.getSelectedRow());
-		}
-		function openTaskDetailInTab(rowdata){
-			if(rowdata){
-				parent.tabsView.toggleTabItem(rowdata.fileName,rowdata.fileName,"TaskFileDetail.jsp?fileName="+rowdata.fileName,true);
-			}
 		}
 		
 		//删除
@@ -83,7 +73,7 @@
 				return;
 			}
 			Dialog.confirm("确定删除文件",function(){
-				YSCore.invokerAgentCommand("com.amarsoft.scheduler.command.impl.TaskFileRecordDeleteCommandImpl",row,function(data){
+				YSCore.invokerAgentCommand("com.amarsoft.scheduler.command.impl.TaskTriggerRecordDeleteCommandImpl",row,function(data){
 					refreshGrid();
 				});	
 			},function(){
@@ -91,17 +81,28 @@
 			});
 		}
 		//编辑参数
-		function onEditParameter(){
+		function runAtOnce(){
 			var row = grid.getSelectedRow();
 			if(!row){
-				Dialog.alert("请选择一条记录");
+				Dialog.alert("请选择一个触发器");
 				return;
 			}
-			var diag = new Dialog();
-			diag.Title = "添加一个新文件";
-			diag.Width = 800;
-			diag.URL = "TaskFileParameter-edit.jsp?"+$.jsonConvertParameter(row);
-			diag.show();
+			Dialog.confirm("手动执行该触发器，可能会失败，也有可能会引起数据逻辑错误，确定要执行吗？",function(){
+				top.Dialog.alert("OK");
+			},function(){
+			});
+		};
+		//列渲染
+		function renderCode(rowdata, rowindex, value, column){
+			var codeMap  = {
+						"CRON_EXP":"cron表达式",
+						"FILE_FLAG":"文件存在",
+						"DB_FLAG":"数据库标识",
+						};
+			if(codeMap[value]){
+				return codeMap[value];
+			}
+			return value;
 		}
 		//==========API==========
 		//刷新列表
@@ -113,31 +114,11 @@
 				gridData["rows"] = data;
 				grid.loadData(gridData);
 			});	
-		}
+		};
 		//********初始化操作，加载列表
 		$(function(){
 			refreshGrid();
 		});
-		
-		function showFlowGraph(){
-			var selectedRow = grid.getSelectedRow();
-			if(selectedRow){
-				var para = {"taskFileName":selectedRow["fileName"]};
-				//var diag = new Dialog();
-				//diag.Title = "查看任务流程图";
-				//diag.URL = ;
-				//diag.Width = 800;
-				//diag.Height = 400;
-				//diag.show();	
-				parent.tabsView.toggleTabItem(
-						"FG_"+selectedRow.fileName,
-						"查看任务流程图",
-						YSCore.getURIAddr("/AppMain/FlowGraphShow.jsp",para),
-						true);
-			}else{
-				Dialog.alert("请选择一条记录");
-			}			
-		}
 	</script>	
 </body>
 </html>

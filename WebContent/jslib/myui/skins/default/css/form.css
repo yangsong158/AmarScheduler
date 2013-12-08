@@ -1,0 +1,32 @@
+body{
+	font-size: 12px;
+	background-color: #d6e5f4;
+}
+
+.myuiform{
+	display:block;
+	width:100%;
+	height:100%;
+	vertical-align: top;
+	padding-top:0px;
+}
+.myuiform label{
+	padding:5px 10px 5px 5px;
+}
+.myuiform input,textarea {
+	font-size: 13px;
+	padding:4px;
+}
+
+.myuiform  .activeField {
+	background-image: none;
+	background-color: #ffffff;
+	border: solid 1px #33677F;
+}
+
+.myuiform  .idle {
+	border: solid 1px #85b1de;
+	background-image: url( '../images/blue_bg.png' );
+	background-repeat: repeat-x;
+	background-position: top;
+}

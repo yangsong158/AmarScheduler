@@ -1,0 +1,1 @@
+var contextPath=<%out.println(request.getContextPath());%>;

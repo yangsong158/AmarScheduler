@@ -7,44 +7,64 @@
     <%@include file="/Frame/page/jspf/jsp_head.jspf" %>
 </head>
 <body>
-	<form id="form1">
+	<div class="box1">
 		<fieldset>
-			<legend>基本属性信息</legend>
-			<table class="tableStyle" formMode="view">
+			<legend>客户端</legend>
+			<table class="tableStyle">
 				<tr>
-					<td width="20%">agent服务器IP：</td>
-					<td width="80%"><input id="agentServerIP" type="text" style="width:150px;" readonly="readonly"/></td>
+					<td style="width: 200px; text-align: right;">代理服务器地址：</td>
+					<td id="label_agentServerIP"></td>
 				</tr>
 				<tr>
-					<td width="20%">agent服务器端口：</td>
-					<td width="80%"><input id="agentServerPort" type="text" style="width:60px;" readonly="readonly"/></td>
+					<td style="width: 200px; text-align: right;">代理服务器端口：</td>
+					<td id="label_agentServerPort"></td>
 				</tr>
 				<tr>
-					<td width="20%">task运行端口：</td>
-					<td width="80%"><input id="subTaskInvokerPort" type="text" style="width:60px;" readonly="readonly"/></td>
+					<td style="width: 200px; text-align: right;">TASK运行端口：</td>
+					<td id="label_subTaskInvokerPort"></td>
 				</tr>
 				<tr>
-					<td width="20%">使用的字符集(charset)：</td>
-					<td width="80%"><input id="charset" type="text" style="width:80px;" readonly="readonly"/></td>
+					<td style="width: 200px; text-align: right;">WEB客户端口使用的字符集：</td>
+					<td id="label_charset"></td>
 				</tr>
 				<tr>
-					<td colspan="2" style="color:#F00;">注意：以上参数，如需修改，请手动编辑WEB-INF/web.xml</td>
+					<td colspan="2" style="color: #F00;">注意：以上参数，如需修改，请手动编辑WEB-INF/web.xml</td>
 				</tr>
 			</table>
 		</fieldset>
-	</form>
+		<fieldset>
+			<legend>代理服务器-基本信息</legend>
+		</fieldset>
+		<fieldset>
+			<legend>代理服务器-TASK信息</legend>
+		</fieldset>
+		<fieldset>
+			<legend>代理服务器-环境变量</legend>
+		</fieldset>
+	</div>
 </body>
 </html>
 <script type="text/javascript">
-$.ajax({
-	   type: "POST",
-	   url: "<c:url value='/Frame/tools/ViewSetting.jsp' />",
-	   cache: false,
-	   dataType:"json",
-	   asyn:false,
-	   success: function(data){
-			$("#form1").initNamePropertyWithId();
-			$("#form1").fillForm(data);
-	   }
+$(document).ready(function(){
+	
+	//第一步：加载客户端，web.xml中的配置信息
+	$.ajax({
+		type : "POST",
+		url : YSCore.getAbsURI("/Frame/tools/ViewSetting.jsp"),
+		cache : false,
+		dataType : "json",
+		asyn : false,
+		success : function(data) {
+			$("#label_agentServerIP").text(data["agentServerIP"]);
+			$("#label_agentServerPort").text(data["agentServerPort"]);
+			$("#label_subTaskInvokerPort").text(data["subTaskInvokerPort"]);
+			$("#label_charset").text(data["charset"]);
+		}
 	});
+	
+	//取代理服务器环境变量信息
+ 	YSCore.invokerAgentCommand("com.amarsoft.scheduler.command.impl.EnvironmentContentShowCommandImpl",null,function(data){
+	}); 
+	
+});
 </script>

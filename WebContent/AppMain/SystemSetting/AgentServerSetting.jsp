@@ -27,19 +27,25 @@
 					<td style="width: 200px; text-align: right;">WEB客户端口使用的字符集：</td>
 					<td id="label_charset"></td>
 				</tr>
-				<tr>
+				<tr style="display:none">
 					<td colspan="2" style="color: #F00;">注意：以上参数，如需修改，请手动编辑WEB-INF/web.xml</td>
 				</tr>
 			</table>
 		</fieldset>
 		<fieldset>
 			<legend>代理服务器-基本信息</legend>
+			<table class="tableStyle" id="info_base">
+			</table>
 		</fieldset>
 		<fieldset>
 			<legend>代理服务器-TASK信息</legend>
+			<table class="tableStyle" id="info_task">
+			</table>
 		</fieldset>
 		<fieldset>
 			<legend>代理服务器-环境变量</legend>
+			<table class="tableStyle" id="info_env">
+			</table>			
 		</fieldset>
 	</div>
 </body>
@@ -64,7 +70,20 @@ $(document).ready(function(){
 	
 	//取代理服务器环境变量信息
  	YSCore.invokerAgentCommand("com.amarsoft.scheduler.command.impl.EnvironmentContentShowCommandImpl",null,function(data){
-	}); 
+		renderItem(data["envAgent"],$("#info_base"));
+		renderItem(data["envTask"],$("#info_task"));
+		renderItem(data["envSystem"],$("#info_env"));
+ 	}); 
 	
+	function renderItem(item,rendered){
+		for(var i=0;i<item.length;i++){
+			rendered.append(
+					'<tr>'
+					+'	<td style="width: 200px; text-align: right;">'+item[i].name+'</td>'
+					+'	<td id="label_agentServerPort">'+item[i].value+'</td>'
+					+'</tr>'
+				);
+		}
+	}
 });
 </script>

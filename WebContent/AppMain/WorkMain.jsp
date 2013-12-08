@@ -34,7 +34,7 @@ var tabData={"list":[
 			{id:"4-3",name:"数据源设置",link:"./SystemSetting/DBConfigManage.jsp",target:"frmright",icon:"./icons/db_setting.png"}
 		]},
 		{children:[
-			{id:"4-4",name:"Agent服务",link:"./SystemSetting/AgentServerSetting.jsp",target:"frmright",icon:"./icons/server_setting.png"},
+			{id:"4-4",name:"参数查看",link:"./SystemSetting/AgentServerSetting.jsp",target:"frmright",icon:"./icons/server_setting.png"},
 		]},
 		{children:[
 			{id:"4-5",name:"用户管理",link:"./SystemSetting/UserManage.jsp",target:"frmright",icon:"./icons/user_manage.png"},

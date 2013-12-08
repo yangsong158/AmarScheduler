@@ -5,4 +5,5 @@
 <%
 	AgentSetting  setting = AgentSetting.getInstance();
 	out.println(XMLHelper.getAsJsonString(setting));
+	System.out.println(XMLHelper.getAsJsonString(setting));
 %>

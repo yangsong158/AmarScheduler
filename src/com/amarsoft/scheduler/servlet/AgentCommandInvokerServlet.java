@@ -68,6 +68,7 @@ public class AgentCommandInvokerServlet extends HttpServlet{
 			outContent=invokerCmd(cmd,parameter);
 		}
 		out.println(outContent);
+		System.out.println("Command:"+cmd);
 		System.out.println(outContent);
 		
 	}

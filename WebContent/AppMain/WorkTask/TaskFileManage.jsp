@@ -145,14 +145,11 @@
 				Dialog.alert("请选择一条记录");
 				return;
 			}
-			var para = {"taskExpr":"@file:"+row["fileName"]};
-			var diag = new Dialog();
-			diag.Title = "任务运行中控制台";
-			diag.Width = 1000;
-			diag.Height = 500;
-			diag.URL = YSCore.getURIAddr("/TaskRunnerServlet",para);
-			diag.show();			
+			
+			YSCore.runTask("@file:"+row["fileName"]);
 		}
+		
+		
 	</script>	
 </body>
 </html>

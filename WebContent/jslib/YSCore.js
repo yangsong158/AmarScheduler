@@ -61,6 +61,45 @@ YSCore.invokerAgentCommand = function(className,requestData,callback,callbackDat
 };
 
 /**
+ * 运行任务
+ * @param taskExpr task表达式
+ */
+YSCore.runTask = function(taskExpr){
+	function showConsole(pid){
+		var diag = new Dialog();
+		diag.Title = "任务运行中控制台";
+		diag.Width = 1000;
+		diag.Height = 500;
+		diag.URL = YSCore.getURIAddr("/AppMain/WorkTask/TaskRunnerConsole.jsp",{"pid":pid});
+		diag.show();	
+	};
+	
+	var para = {"taskExpr":taskExpr};
+	YSCore.invokerAgentCommand("com.amarsoft.scheduler.command.impl.process.QueryProcessID",para,function(d0){
+		var pid = parseInt(d0);
+		
+		if(pid<=0){	//不存在，则手工创建并启动
+			YSCore.invokerAgentCommand("com.amarsoft.scheduler.command.impl.process.CreateProcess",para,function(d1){
+				pid = parseInt(d1);
+				if(pid > 0){	//创建成功后运行
+					YSCore.invokerAgentCommand("com.amarsoft.scheduler.command.impl.process.StartProcess",{"pid":pid},function(status){
+					},"text");
+					showConsole(pid);
+				}else{
+					alert("创建任务失败");
+					return;
+				}
+			},"text");
+		}else{
+			showConsole(pid);
+		}
+	},"text");	
+		
+};
+
+
+
+/**
  * 扩展几个静态API
  */
 $.extend({
